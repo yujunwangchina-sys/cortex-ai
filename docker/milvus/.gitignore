@@ -1,0 +1,10 @@
+# Docker 运行时生成的文件
+.env
+init-sql/*.sql
+
+# 日志文件
+*.log
+
+# 备份文件
+*.tar.gz
+*.sql.gz

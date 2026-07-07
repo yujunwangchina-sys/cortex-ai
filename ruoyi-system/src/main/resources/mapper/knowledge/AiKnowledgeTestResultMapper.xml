@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.knowledge.mapper.AiKnowledgeTestResultMapper">
+
+    <resultMap type="AiKnowledgeTestResult" id="AiKnowledgeTestResultResult">
+        <result property="id"              column="id"               />
+        <result property="kbId"            column="kb_id"            />
+        <result property="testCaseId"      column="test_case_id"     />
+        <result property="query"           column="query"            />
+        <result property="hitDocIds"       column="hit_doc_ids"      />
+        <result property="hitChunks"       column="hit_chunks"       />
+        <result property="recallScore"     column="recall_score"     />
+        <result property="precisionScore"  column="precision_score"  />
+        <result property="avgScore"        column="avg_score"        />
+        <result property="topKUsed"        column="top_k_used"       />
+        <result property="runTime"         column="run_time"         />
+        <result property="testName"        column="test_name"        />
+    </resultMap>
+
+    <insert id="insertAiKnowledgeTestResult" parameterType="AiKnowledgeTestResult" useGeneratedKeys="true" keyProperty="id">
+        insert into ai_knowledge_test_result
+        (kb_id, test_case_id, query, hit_doc_ids, hit_chunks, recall_score,
+         precision_score, avg_score, top_k_used, run_time)
+        values
+        (#{kbId}, #{testCaseId}, #{query}, #{hitDocIds}, #{hitChunks}, #{recallScore},
+         #{precisionScore}, #{avgScore}, #{topKUsed}, NOW())
+    </insert>
+
+    <select id="selectByKbId" parameterType="Long" resultMap="AiKnowledgeTestResultResult">
+        select r.*, c.test_name
+        from ai_knowledge_test_result r
+        left join ai_knowledge_test_case c on r.test_case_id = c.id
+        where r.kb_id = #{kbId}
+        order by r.run_time desc
+    </select>
+
+    <select id="selectByTestCaseId" parameterType="Long" resultMap="AiKnowledgeTestResultResult">
+        select r.*, c.test_name
+        from ai_knowledge_test_result r
+        left join ai_knowledge_test_case c on r.test_case_id = c.id
+        where r.test_case_id = #{testCaseId}
+        order by r.run_time desc
+    </select>
+
+    <delete id="deleteByKbId" parameterType="Long">
+        delete from ai_knowledge_test_result where kb_id = #{kbId}
+    </delete>
+
+</mapper>

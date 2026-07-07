@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.knowledge.mapper.AiAgentKnowledgeMapper">
+
+    <resultMap type="AiAgentKnowledge" id="AiAgentKnowledgeResult">
+        <result property="id"             column="id"              />
+        <result property="agentId"        column="agent_id"        />
+        <result property="kbId"           column="kb_id"           />
+        <result property="retrievalMode"  column="retrieval_mode"  />
+        <result property="metadataFilter" column="metadata_filter" />
+        <result property="status"         column="status"          />
+        <result property="grantedBy"      column="granted_by"      />
+        <result property="createTime"     column="create_time"     />
+        <result property="kbName"         column="kb_name"         />
+        <result property="kbCode"         column="kb_code"         />
+    </resultMap>
+
+    <sql id="selectAiAgentKnowledgeVo">
+        select g.*, b.kb_name, b.kb_code
+        from ai_agent_knowledge g
+        left join ai_knowledge_base b on g.kb_id = b.id
+    </sql>
+
+    <select id="selectByAgentId" parameterType="Long" resultMap="AiAgentKnowledgeResult">
+        <include refid="selectAiAgentKnowledgeVo"/>
+        where g.agent_id = #{agentId}
+        order by g.create_time desc
+    </select>
+
+    <select id="selectActiveByAgentId" parameterType="Long" resultMap="AiAgentKnowledgeResult">
+        <include refid="selectAiAgentKnowledgeVo"/>
+        where g.agent_id = #{agentId} and g.status = '0'
+        order by g.create_time desc
+    </select>
+
+    <select id="selectByAgentIdAndKbId" resultMap="AiAgentKnowledgeResult">
+        <include refid="selectAiAgentKnowledgeVo"/>
+        where g.agent_id = #{agentId} and g.kb_id = #{kbId}
+    </select>
+
+    <insert id="insertAiAgentKnowledge" parameterType="AiAgentKnowledge" useGeneratedKeys="true" keyProperty="id">
+        insert into ai_agent_knowledge (agent_id, kb_id, retrieval_mode, metadata_filter, status, granted_by, create_time)
+        values (#{agentId}, #{kbId}, #{retrievalMode}, #{metadataFilter}, #{status}, #{grantedBy}, NOW())
+    </insert>
+
+    <delete id="deleteByAgentId" parameterType="Long">
+        delete from ai_agent_knowledge where agent_id = #{agentId}
+    </delete>
+
+    <delete id="deleteByAgentIdAndKbId">
+        delete from ai_agent_knowledge where agent_id = #{agentId} and kb_id = #{kbId}
+    </delete>
+
+    <insert id="batchInsertGrants" parameterType="java.util.List">
+        insert into ai_agent_knowledge (agent_id, kb_id, retrieval_mode, metadata_filter, status, granted_by, create_time)
+        values
+        <foreach collection="list" item="g" separator=",">
+            (#{g.agentId}, #{g.kbId}, #{g.retrievalMode}, #{g.metadataFilter}, #{g.status}, #{g.grantedBy}, NOW())
+        </foreach>
+    </insert>
+
+    <select id="selectKbIdsByAgentId" parameterType="Long" resultType="Long">
+        select kb_id from ai_agent_knowledge where agent_id = #{agentId} and status = '0'
+    </select>
+
+</mapper>

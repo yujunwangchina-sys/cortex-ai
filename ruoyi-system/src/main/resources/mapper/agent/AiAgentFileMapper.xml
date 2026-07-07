@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.agent.mapper.AiAgentFileMapper">
+    
+    <resultMap type="com.ruoyi.agent.domain.AiAgentFile" id="AiAgentFileResult">
+        <result property="fileId"    column="file_id"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="fileSize"    column="file_size"    />
+        <result property="fileType"    column="file_type"    />
+        <result property="sessionId"    column="session_id"    />
+        <result property="agentCode"    column="agent_code"    />
+        <result property="businessSystem"    column="business_system"    />
+        <result property="userLoginName"    column="user_login_name"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectAiAgentFileVo">
+        select file_id, file_name, file_path, file_size, file_type, session_id, agent_code, business_system, user_login_name, create_time, remark from ai_agent_file
+    </sql>
+
+    <select id="selectAiAgentFileList" parameterType="com.ruoyi.agent.domain.AiAgentFile" resultMap="AiAgentFileResult">
+        <include refid="selectAiAgentFileVo"/>
+        <where>  
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="fileType != null  and fileType != ''"> and file_type = #{fileType}</if>
+            <if test="sessionId != null  and sessionId != ''"> and session_id = #{sessionId}</if>
+            <if test="agentCode != null  and agentCode != ''"> and agent_code = #{agentCode}</if>
+            <if test="businessSystem != null  and businessSystem != ''"> and business_system = #{businessSystem}</if>
+            <if test="userLoginName != null  and userLoginName != ''"> and user_login_name = #{userLoginName}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectAiAgentFileByFileId" parameterType="Long" resultMap="AiAgentFileResult">
+        <include refid="selectAiAgentFileVo"/>
+        where file_id = #{fileId}
+    </select>
+    
+    <select id="selectFilesBySessionId" parameterType="String" resultMap="AiAgentFileResult">
+        <include refid="selectAiAgentFileVo"/>
+        where session_id = #{sessionId}
+        order by create_time desc
+    </select>
+    
+    <select id="selectFilesByUserAndBusiness" resultMap="AiAgentFileResult">
+        <include refid="selectAiAgentFileVo"/>
+        where user_login_name = #{param1} and business_system = #{param2}
+        order by create_time desc
+    </select>
+    
+    <select id="selectFileByOriginalNameAndSession" resultMap="AiAgentFileResult">
+        <include refid="selectAiAgentFileVo"/>
+        where file_name = #{param1} and session_id = #{param2}
+        order by create_time desc
+        limit 1
+    </select>
+        
+    <insert id="insertAiAgentFile" parameterType="com.ruoyi.agent.domain.AiAgentFile" useGeneratedKeys="true" keyProperty="fileId">
+        insert into ai_agent_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileName != null and fileName != ''">file_name,</if>
+            <if test="filePath != null and filePath != ''">file_path,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="fileType != null and fileType != ''">file_type,</if>
+            <if test="sessionId != null">session_id,</if>
+            <if test="agentCode != null">agent_code,</if>
+            <if test="businessSystem != null and businessSystem != ''">business_system,</if>
+            <if test="userLoginName != null and userLoginName != ''">user_login_name,</if>
+            <if test="remark != null">remark,</if>
+            create_time
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileName != null and fileName != ''">#{fileName},</if>
+            <if test="filePath != null and filePath != ''">#{filePath},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="fileType != null and fileType != ''">#{fileType},</if>
+            <if test="sessionId != null">#{sessionId},</if>
+            <if test="agentCode != null">#{agentCode},</if>
+            <if test="businessSystem != null and businessSystem != ''">#{businessSystem},</if>
+            <if test="userLoginName != null and userLoginName != ''">#{userLoginName},</if>
+            <if test="remark != null">#{remark},</if>
+            #{createTime}
+         </trim>
+    </insert>
+
+    <update id="updateAiAgentFile" parameterType="com.ruoyi.agent.domain.AiAgentFile">
+        update ai_agent_file
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileName != null and fileName != ''">file_name = #{fileName},</if>
+            <if test="filePath != null and filePath != ''">file_path = #{filePath},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="fileType != null and fileType != ''">file_type = #{fileType},</if>
+            <if test="sessionId != null">session_id = #{sessionId},</if>
+            <if test="agentCode != null">agent_code = #{agentCode},</if>
+            <if test="businessSystem != null and businessSystem != ''">business_system = #{businessSystem},</if>
+            <if test="userLoginName != null and userLoginName != ''">user_login_name = #{userLoginName},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where file_id = #{fileId}
+    </update>
+
+    <delete id="deleteAiAgentFileByFileId" parameterType="Long">
+        delete from ai_agent_file where file_id = #{fileId}
+    </delete>
+
+    <delete id="deleteAiAgentFileByFileIds" parameterType="String">
+        delete from ai_agent_file where file_id in 
+        <foreach item="fileId" collection="array" open="(" separator="," close=")">
+            #{fileId}
+        </foreach>
+    </delete>
+</mapper>

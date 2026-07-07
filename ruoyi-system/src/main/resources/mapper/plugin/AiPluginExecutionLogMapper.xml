@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.plugin.mapper.AiPluginExecutionLogMapper">
+    
+    <resultMap type="AiPluginExecutionLog" id="AiPluginExecutionLogResult">
+        <result property="logId"           column="log_id"            />
+        <result property="sessionId"       column="session_id"        />
+        <result property="toolName"        column="tool_name"         />
+        <result property="userId"          column="user_id"           />
+        <result property="inputParams"     column="input_params"      />
+        <result property="outputResult"    column="output_result"     />
+        <result property="executionTime"   column="execution_time"    />
+        <result property="status"          column="status"            />
+        <result property="errorMessage"    column="error_message"     />
+        <result property="createTime"      column="create_time"       />
+        <result property="userName"        column="user_name"         />
+        <result property="pluginName"      column="plugin_name"       />
+    </resultMap>
+
+    <sql id="selectAiPluginExecutionLogVo">
+        select l.log_id, l.session_id, l.tool_name, l.user_id,
+               l.input_params, l.output_result, l.execution_time, l.status, 
+               l.error_message, l.create_time,
+               u.user_name,
+               p.plugin_name
+        from ai_plugin_execution_log l
+        left join sys_user u on l.user_id = u.user_id
+        left join ai_plugin p on l.plugin_name = p.plugin_name
+    </sql>
+
+    <select id="selectAiPluginExecutionLogList" parameterType="AiPluginExecutionLog" resultMap="AiPluginExecutionLogResult">
+        <include refid="selectAiPluginExecutionLogVo"/>
+        <where>  
+            <if test="sessionId != null  and sessionId != ''"> and l.session_id = #{sessionId}</if>
+            <if test="toolName != null  and toolName != ''"> and l.tool_name like concat('%', #{toolName}, '%')</if>
+            <if test="userId != null "> and l.user_id = #{userId}</if>
+            <if test="status != null  and status != ''"> and l.status = #{status}</if>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                and date_format(l.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                and date_format(l.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+        order by l.create_time desc
+    </select>
+    
+    <select id="selectAiPluginExecutionLogByLogId" parameterType="Long" resultMap="AiPluginExecutionLogResult">
+        <include refid="selectAiPluginExecutionLogVo"/>
+        where l.log_id = #{logId}
+    </select>
+
+    <select id="selectLogListBySessionId" parameterType="String" resultMap="AiPluginExecutionLogResult">
+        <include refid="selectAiPluginExecutionLogVo"/>
+        where l.session_id = #{sessionId}
+        order by l.create_time asc
+    </select>
+        
+    <insert id="insertAiPluginExecutionLog" parameterType="AiPluginExecutionLog" useGeneratedKeys="true" keyProperty="logId">
+        insert into ai_plugin_execution_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sessionId != null and sessionId != ''">session_id,</if>
+            <if test="pluginName != null and pluginName != ''">plugin_name,</if>
+            <if test="toolName != null and toolName != ''">tool_name,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="inputParams != null">input_params,</if>
+            <if test="outputResult != null">output_result,</if>
+            <if test="executionTime != null">execution_time,</if>
+            <if test="status != null">status,</if>
+            <if test="errorMessage != null">error_message,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sessionId != null and sessionId != ''">#{sessionId},</if>
+            <if test="pluginName != null and pluginName != ''">#{pluginName},</if>
+            <if test="toolName != null and toolName != ''">#{toolName},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="inputParams != null">#{inputParams},</if>
+            <if test="outputResult != null">#{outputResult},</if>
+            <if test="executionTime != null">#{executionTime},</if>
+            <if test="status != null">#{status},</if>
+            <if test="errorMessage != null">#{errorMessage},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <delete id="deleteAiPluginExecutionLogByLogId" parameterType="Long">
+        delete from ai_plugin_execution_log where log_id = #{logId}
+    </delete>
+
+    <delete id="deleteAiPluginExecutionLogByLogIds" parameterType="String">
+        delete from ai_plugin_execution_log where log_id in 
+        <foreach item="logId" collection="array" open="(" separator="," close=")">
+            #{logId}
+        </foreach>
+    </delete>
+
+    <delete id="cleanOldLogs" parameterType="int">
+        delete from ai_plugin_execution_log 
+        where create_time &lt; date_sub(now(), interval #{days} day)
+    </delete>
+</mapper>

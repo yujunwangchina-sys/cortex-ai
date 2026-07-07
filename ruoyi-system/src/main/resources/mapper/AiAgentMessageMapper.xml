@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.agent.mapper.AiAgentMessageMapper">
+
+    <resultMap type="com.ruoyi.agent.domain.AiAgentMessage" id="AiAgentMessageResult">
+        <id     property="id"             column="id"              />
+        <result property="sessionId"      column="session_id"      />
+        <result property="seqNum"         column="seq_num"         />
+        <result property="role"           column="role"            />
+        <result property="content"        column="content"         />
+        <result property="toolCallId"     column="tool_call_id"    />
+        <result property="toolCallsJson"  column="tool_calls_json" />
+        <result property="imageUrlsJson"  column="image_urls_json" />
+        <result property="name"           column="name"            />
+        <result property="createBy"       column="create_by"       />
+        <result property="createTime"     column="create_time"     />
+    </resultMap>
+
+    <sql id="selectColumns">
+        id, session_id, seq_num, role, content, tool_call_id, tool_calls_json,
+        image_urls_json, name, create_by, create_time
+    </sql>
+
+    <insert id="insertMessage" parameterType="com.ruoyi.agent.domain.AiAgentMessage" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ai_agent_message (
+            session_id, seq_num, role, content, tool_call_id, tool_calls_json,
+            image_urls_json, name, create_by, create_time
+        ) VALUES (
+            #{sessionId}, #{seqNum}, #{role}, #{content}, #{toolCallId}, #{toolCallsJson},
+            #{imageUrlsJson}, #{name}, #{createBy}, #{createTime}
+        )
+    </insert>
+
+    <insert id="batchInsertMessages" parameterType="java.util.List">
+        INSERT INTO ai_agent_message (
+            session_id, seq_num, role, content, tool_call_id, tool_calls_json,
+            image_urls_json, name, create_by, create_time
+        ) VALUES
+        <foreach collection="messages" item="m" separator=",">
+            (#{m.sessionId}, #{m.seqNum}, #{m.role}, #{m.content}, #{m.toolCallId},
+             #{m.toolCallsJson}, #{m.imageUrlsJson}, #{m.name}, #{m.createBy}, #{m.createTime})
+        </foreach>
+    </insert>
+
+    <select id="selectBySessionId" resultMap="AiAgentMessageResult">
+        SELECT <include refid="selectColumns"/> FROM ai_agent_message
+        WHERE session_id = #{sessionId}
+        ORDER BY seq_num ASC
+    </select>
+
+    <select id="countBySessionId" resultType="int">
+        SELECT COUNT(*) FROM ai_agent_message WHERE session_id = #{sessionId}
+    </select>
+
+    <select id="selectAfterSeqNum" resultMap="AiAgentMessageResult">
+        SELECT <include refid="selectColumns"/> FROM ai_agent_message
+        WHERE session_id = #{sessionId} AND seq_num > #{seqNum}
+        ORDER BY seq_num ASC
+    </select>
+
+    <delete id="deleteBySessionId">
+        DELETE FROM ai_agent_message WHERE session_id = #{sessionId}
+    </delete>
+
+</mapper>

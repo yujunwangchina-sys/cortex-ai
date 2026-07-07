@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.agent.mapper.AiAgentPluginMapper">
+    
+    <select id="selectPluginIdsByAgentId" parameterType="Long" resultType="Long">
+        select plugin_id from ai_agent_plugin where agent_id = #{agentId}
+    </select>
+
+    <insert id="batchInsertAgentPlugin" parameterType="java.util.List">
+        insert into ai_agent_plugin (agent_id, plugin_id) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.agentId}, #{item.pluginId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteAgentPluginByAgentId" parameterType="Long">
+        delete from ai_agent_plugin where agent_id = #{agentId}
+    </delete>
+</mapper>

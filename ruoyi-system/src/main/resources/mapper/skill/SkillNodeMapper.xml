@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.skill.mapper.SkillNodeMapper">
+
+    <resultMap type="com.ruoyi.skill.domain.SkillNode" id="SkillNodeResult">
+        <id     property="id"              column="id"                />
+        <result property="name"            column="name"              />
+        <result property="fileExtension"   column="file_extension"    />
+        <result property="path"            column="path"              />
+        <result property="isDirectory"     column="is_directory"      />
+        <result property="nodeType"        column="node_type"         />
+        <result property="skillScope"        column="skill_scope"        />
+        <result property="skillType"         column="skill_type"         />
+        <result property="learnedFromSession" column="learned_from_session" />
+        <result property="businessSystem"     column="business_system"     />
+        <result property="ownerUser"          column="owner_user"          />
+        <result property="parentId"        column="parent_id"         />
+        <result property="sortOrder"       column="sort_order"        />
+        <result property="content"         column="content"           />
+        <result property="skillMetadata"   column="skill_metadata"    />
+        <result property="fileSize"        column="file_size"         />
+        <result property="mimeType"        column="mime_type"         />
+        <result property="createBy"        column="create_by"         />
+        <result property="createTime"      column="create_time"       />
+        <result property="updateBy"        column="update_by"         />
+        <result property="updateTime"      column="update_time"       />
+        <result property="remark"          column="remark"            />
+        <result property="lifecycleState" column="lifecycle_state" />
+        <result property="pinned" column="pinned" />
+    </resultMap>
+
+    <sql id="selectSkillNodeVo">
+        SELECT id, name, file_extension, path, is_directory, node_type, 
+               skill_scope, skill_type, learned_from_session, business_system, owner_user,
+               parent_id, sort_order, file_size, mime_type, 
+               create_by, create_time, update_by, update_time, remark
+        FROM skill_node
+    </sql>
+
+    <select id="selectAllNodes" resultMap="SkillNodeResult">
+        <include refid="selectSkillNodeVo"/>
+        ORDER BY sort_order ASC, create_time ASC
+    </select>
+
+    <select id="selectNodeById" parameterType="Long" resultMap="SkillNodeResult">
+        SELECT id, name, file_extension, path, is_directory, node_type, parent_id, sort_order, 
+               skill_scope, skill_type, learned_from_session, business_system, owner_user, content, skill_metadata, file_size, mime_type,
+               create_by, create_time, update_by, update_time, remark
+        FROM skill_node
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectNodeByPath" parameterType="String" resultMap="SkillNodeResult">
+        SELECT id, name, file_extension, path, is_directory, node_type, parent_id, sort_order, 
+               skill_scope, skill_type, learned_from_session, business_system, owner_user, content, skill_metadata, file_size, mime_type,
+               create_by, create_time, update_by, update_time, remark
+        FROM skill_node
+        WHERE path = #{path}
+    </select>
+
+    <select id="selectChildrenByParentId" parameterType="Long" resultMap="SkillNodeResult">
+        <include refid="selectSkillNodeVo"/>
+        WHERE parent_id = #{parentId}
+    </select>
+
+    <insert id="insertNode" parameterType="com.ruoyi.skill.domain.SkillNode" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO skill_node
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="fileExtension != null">file_extension,</if>
+            <if test="path != null and path != ''">path,</if>
+            <if test="isDirectory != null">is_directory,</if>
+            <if test="nodeType != null and nodeType != ''">node_type,</if>
+            <if test="skillScope != null">skill_scope,</if>
+            <if test="skillType != null">skill_type,</if>
+            <if test="learnedFromSession != null">learned_from_session,</if>
+            <if test="businessSystem != null">business_system,</if>
+            <if test="ownerUser != null">owner_user,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="content != null">content,</if>
+            <if test="skillMetadata != null">skill_metadata,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="mimeType != null">mime_type,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="fileExtension != null">#{fileExtension},</if>
+            <if test="path != null and path != ''">#{path},</if>
+            <if test="isDirectory != null">#{isDirectory},</if>
+            <if test="nodeType != null and nodeType != ''">#{nodeType},</if>
+            <if test="skillScope != null">#{skillScope},</if>
+            <if test="skillType != null">#{skillType},</if>
+            <if test="learnedFromSession != null">#{learnedFromSession},</if>
+            <if test="businessSystem != null">#{businessSystem},</if>
+            <if test="ownerUser != null">#{ownerUser},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="content != null">#{content},</if>
+            <if test="skillMetadata != null">#{skillMetadata},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="mimeType != null">#{mimeType},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateNode" parameterType="com.ruoyi.skill.domain.SkillNode">
+        UPDATE skill_node
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="fileExtension != null">file_extension = #{fileExtension},</if>
+            <if test="path != null and path != ''">path = #{path},</if>
+            <if test="isDirectory != null">is_directory = #{isDirectory},</if>
+            <if test="nodeType != null and nodeType != ''">node_type = #{nodeType},</if>
+            <if test="skillScope != null">skill_scope = #{skillScope},</if>
+            <if test="skillType != null">skill_type = #{skillType},</if>
+            <if test="learnedFromSession != null">learned_from_session = #{learnedFromSession},</if>
+            <if test="businessSystem != null">business_system = #{businessSystem},</if>
+            <if test="ownerUser != null">owner_user = #{ownerUser},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="skillMetadata != null">skill_metadata = #{skillMetadata},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="mimeType != null">mime_type = #{mimeType},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteNodeById" parameterType="Long">
+        DELETE FROM skill_node WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteNodesByIds" parameterType="Long">
+        DELETE FROM skill_node WHERE id IN
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- 两层隔离查询: 全局技能 + 个人技能(按业务系统+用户) -->
+    <select id="selectVisibleSkills" resultMap="SkillNodeResult">
+        <include refid="selectSkillNodeVo"/>
+        where node_type = 'skill'
+        and (
+            (skill_scope = 'global')
+            or
+            (skill_scope = 'personal' and business_system = #{businessSystem} and owner_user = #{userLoginName})
+        )
+        order by sort_order asc, create_time desc
+    </select>
+
+    <!-- 系统公共技能(全局技能) -->
+    <select id="selectSystemSkills" resultMap="SkillNodeResult">
+        <include refid="selectSkillNodeVo"/>
+        where node_type = 'skill'
+        and skill_scope = 'global'
+        order by sort_order asc, create_time desc
+    </select>
+
+    <!-- 用户个人技能（包含技能包和技能节点） -->
+    <select id="selectUserSkills" resultMap="SkillNodeResult">
+        <include refid="selectSkillNodeVo"/>
+        where (node_type = 'skill' OR node_type = 'skill_package')
+        and skill_scope = 'personal'
+        and owner_user = #{ownerUser}
+        order by create_time desc
+    </select>
+
+    <select id="selectUserSkillsByOwner" resultMap="SkillNodeResult">
+        select * from skill_node
+        where skill_scope = 'personal'
+        and owner_user = #{ownerUser}
+        and (business_system = #{businessSystem} or business_system is null)
+        order by create_time desc
+    </select>
+
+    <delete id="deleteExpiredUserSkills">
+        delete from skill_node
+        where skill_scope = 'personal'
+        and create_time &lt; DATE_SUB(NOW(), INTERVAL #{days} DAY)
+    </delete>
+
+    <select id="selectStaleUserSkills" resultMap="SkillNodeResult">
+        SELECT id, name, file_extension, path, is_directory, node_type,
+               skill_scope, skill_type, learned_from_session, business_system, owner_user,
+               parent_id, sort_order, file_size, mime_type,
+               create_by, create_time, update_by, update_time, remark,
+               lifecycle_state, pinned
+        FROM skill_node
+        WHERE skill_scope = 'personal'
+          AND (lifecycle_state = 'active' OR lifecycle_state IS NULL)
+          AND pinned = 0
+          AND DATEDIFF(NOW(), COALESCE(update_time, create_time)) > #{days}
+    </select>
+
+    <update id="updateLifecycleState">
+        UPDATE skill_node SET lifecycle_state = #{state}, update_time = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <update id="archiveOldStaleSkills">
+        UPDATE skill_node
+        SET lifecycle_state = 'archived', update_time = NOW()
+        WHERE skill_scope = 'personal'
+          AND lifecycle_state = 'stale'
+          AND pinned = 0
+          AND DATEDIFF(NOW(), COALESCE(update_time, create_time)) > #{days}
+    </update>
+
+    <delete id="deleteArchivedSkills">
+        DELETE FROM skill_node
+        WHERE skill_scope = 'personal'
+          AND lifecycle_state = 'archived'
+          AND DATEDIFF(NOW(), COALESCE(update_time, create_time)) > #{days}
+    </delete>
+
+
+    <select id="selectChildrenByParentIds" resultMap="SkillNodeResult">
+        SELECT id, name, file_extension, path, is_directory, node_type,
+               skill_scope, skill_type, learned_from_session, business_system, owner_user,
+               parent_id, sort_order, file_size, mime_type,
+               create_by, create_time, update_by, update_time, remark
+        FROM skill_node
+        WHERE parent_id IN
+        <foreach item="pid" collection="parentIds" open="(" separator="," close=")">
+            #{pid}
+        </foreach>
+        ORDER BY sort_order ASC, create_time ASC
+    </select>
+
+    <select id="selectNodeWithContent" resultMap="SkillNodeResult">
+        SELECT id, name, file_extension, path, is_directory, node_type,
+               skill_scope, skill_type, learned_from_session, business_system, owner_user,
+               parent_id, sort_order, content, skill_metadata, file_size, mime_type,
+               create_by, create_time, update_by, update_time, remark,
+               lifecycle_state, pinned
+        FROM skill_node
+        WHERE id = #{id}
+    </select>
+
+    <select id="searchSkills" resultMap="SkillNodeResult">
+        SELECT id, name, file_extension, path, is_directory, node_type,
+               skill_scope, skill_type, learned_from_session, business_system, owner_user,
+               parent_id, sort_order, file_size, mime_type,
+               create_by, create_time, update_by, update_time, remark
+        FROM skill_node
+        WHERE node_type = 'skill'
+        AND (
+            (skill_scope = 'global')
+            OR
+            (skill_scope = 'personal' AND business_system = #{businessSystem} AND owner_user = #{userLoginName})
+        )
+        AND (name LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+        ORDER BY sort_order ASC, create_time DESC
+        LIMIT 20
+    </select>
+
+    <!-- 根据技能包ID直接查找SKILL.md文件（用于诊断和优化） -->
+    <select id="selectSkillMdByPackageId" parameterType="Long" resultMap="SkillNodeResult">
+        SELECT id, name, file_extension, path, is_directory, node_type,
+               skill_scope, skill_type, learned_from_session, business_system, owner_user,
+               parent_id, sort_order, content, skill_metadata, file_size, mime_type,
+               create_by, create_time, update_by, update_time, remark,
+               lifecycle_state, pinned
+        FROM skill_node
+        WHERE parent_id = #{packageId}
+          AND UPPER(name) = 'SKILL.MD'
+          AND is_directory = 0
+        LIMIT 1
+    </select>
+    
+    <select id="countSkillPackages" resultType="int">
+        select count(*) from skill_node
+        where node_type = 'skill_package'
+    </select>
+    
+    <select id="countSkillPackagesLastPeriod" resultType="int">
+        select count(*) from skill_node
+        where node_type = 'skill_package'
+        and create_time &lt;= DATE_SUB(NOW(), INTERVAL 7 DAY)
+    </select>
+    
+    <select id="countSkillPackagesByDate" parameterType="String" resultType="int">
+        select count(*) from skill_node
+        where node_type = 'skill_package'
+        and DATE(create_time) &lt;= #{date}
+    </select>
+
+</mapper>
