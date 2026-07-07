@@ -516,8 +516,7 @@ CortexChat.init({
 
 ## 📞 联系方式
 
-- 技术支持：support@cortex-platform.com
-- 技术文档：http://docs.cortex-platform.com
+- 技术支持：yujun.wang.china@gmail.com
 - 问题反馈：提交GitHub Issue
 
 ## 🙏 鸣谢
