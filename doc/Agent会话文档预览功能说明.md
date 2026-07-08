@@ -133,20 +133,20 @@ KKFileView 是一个开源的文件在线预览解决方案，支持更多格式
 ## 相关文件
 
 ### 前端
-- `RuoYi-Vue3/src/views/agent/components/FilePreviewDialog.vue`
-- `RuoYi-Vue3/src/views/agent/components/ChatMessageItem.vue`
-- `RuoYi-Vue3/src/views/preview/index.vue`
-- `RuoYi-Vue3/src/views/preview/components/DocumentPreview.vue`
-- `RuoYi-Vue3/src/views/preview/components/PDFViewer.vue`
-- `RuoYi-Vue3/src/views/preview/components/HTMLViewer.vue`
-- `RuoYi-Vue3/src/views/preview/components/OfficeViewer.vue`
+- `Cortex-Vue3/src/views/agent/components/FilePreviewDialog.vue`
+- `Cortex-Vue3/src/views/agent/components/ChatMessageItem.vue`
+- `Cortex-Vue3/src/views/preview/index.vue`
+- `Cortex-Vue3/src/views/preview/components/DocumentPreview.vue`
+- `Cortex-Vue3/src/views/preview/components/PDFViewer.vue`
+- `Cortex-Vue3/src/views/preview/components/HTMLViewer.vue`
+- `Cortex-Vue3/src/views/preview/components/OfficeViewer.vue`
 
 ### 后端
-- `ruoyi-admin/src/main/java/com/ruoyi/web/controller/agent/AgentFileController.java`
-- `ruoyi-admin/src/main/java/com/ruoyi/web/controller/preview/DocumentPreviewController.java`
+- `cortex-admin/src/main/java/com/cortex/web/controller/agent/AgentFileController.java`
+- `cortex-admin/src/main/java/com/cortex/web/controller/preview/DocumentPreviewController.java`
 
 ### API
-- `RuoYi-Vue3/src/api/preview/document.js`
+- `Cortex-Vue3/src/api/preview/document.js`
 
 ## 更新日志
 

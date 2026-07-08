@@ -89,7 +89,7 @@ ToolExecutionResult result = client.executeTool(
 ## 📋 重构步骤
 
 ### **第1步：更新依赖** ✅
-已完成：在`ruoyi-system/pom.xml`中添加：
+已完成：在`cortex-system/pom.xml`中添加：
 ```xml
 <dependency>
     <groupId>dev.langchain4j</groupId>

@@ -313,7 +313,7 @@ skill_manage({
 - `hermes-agent-2026.6.19/tools/skill_manager_tool.py` - Hermes 原实现
 - `doc/Skill自学习机制启用说明.md` - 自学习需求背景
 - `doc/Skill渐进式披露机制详解.md` - 渐进式披露设计
-- `ruoyi-system/src/main/java/com/ruoyi/agent/runtime/prompt/PromptBuilder.java` - 提示词配置
+- `cortex-system/src/main/java/com/cortex/agent/runtime/prompt/PromptBuilder.java` - 提示词配置
 
 ---
 

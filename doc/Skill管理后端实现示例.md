@@ -28,9 +28,9 @@ CREATE TABLE `skill_node` (
 
 ### SkillNode.java
 ```java
-package com.ruoyi.skill.domain;
+package com.cortex.skill.domain;
 
-import com.ruoyi.common.core.domain.BaseEntity;
+import com.cortex.common.core.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.List;
 
@@ -102,9 +102,9 @@ public class SkillNode extends BaseEntity {
 
 ### SkillNodeMapper.java
 ```java
-package com.ruoyi.skill.mapper;
+package com.cortex.skill.mapper;
 
-import com.ruoyi.skill.domain.SkillNode;
+import com.cortex.skill.domain.SkillNode;
 import java.util.List;
 
 /**
@@ -157,9 +157,9 @@ public interface SkillNodeMapper {
 
 ### ISkillNodeService.java
 ```java
-package com.ruoyi.skill.service;
+package com.cortex.skill.service;
 
-import com.ruoyi.skill.domain.SkillNode;
+import com.cortex.skill.domain.SkillNode;
 import java.util.List;
 
 public interface ISkillNodeService {
@@ -212,11 +212,11 @@ public interface ISkillNodeService {
 
 ### SkillNodeServiceImpl.java
 ```java
-package com.ruoyi.skill.service.impl;
+package com.cortex.skill.service.impl;
 
-import com.ruoyi.skill.domain.SkillNode;
-import com.ruoyi.skill.mapper.SkillNodeMapper;
-import com.ruoyi.skill.service.ISkillNodeService;
+import com.cortex.skill.domain.SkillNode;
+import com.cortex.skill.mapper.SkillNodeMapper;
+import com.cortex.skill.service.ISkillNodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -378,12 +378,12 @@ public class SkillNodeServiceImpl implements ISkillNodeService {
 
 ### SkillNodeController.java
 ```java
-package com.ruoyi.skill.controller;
+package com.cortex.skill.controller;
 
-import com.ruoyi.common.core.controller.BaseController;
-import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.skill.domain.SkillNode;
-import com.ruoyi.skill.service.ISkillNodeService;
+import com.cortex.common.core.controller.BaseController;
+import com.cortex.common.core.domain.AjaxResult;
+import com.cortex.skill.domain.SkillNode;
+import com.cortex.skill.service.ISkillNodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -500,9 +500,9 @@ public class SkillNodeController extends BaseController {
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.skill.mapper.SkillNodeMapper">
+<mapper namespace="com.cortex.skill.mapper.SkillNodeMapper">
 
-    <resultMap id="SkillNodeResult" type="com.ruoyi.skill.domain.SkillNode">
+    <resultMap id="SkillNodeResult" type="com.cortex.skill.domain.SkillNode">
         <id     property="id"           column="id"             />
         <result property="name"         column="name"           />
         <result property="path"         column="path"           />
@@ -536,7 +536,7 @@ public class SkillNodeController extends BaseController {
         SELECT * FROM skill_node WHERE parent_id = #{parentId}
     </select>
 
-    <insert id="insertNode" parameterType="com.ruoyi.skill.domain.SkillNode" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertNode" parameterType="com.cortex.skill.domain.SkillNode" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO skill_node (
             name, path, is_directory, parent_id, sort_order, content, file_size,
             create_by, create_time, update_by, update_time, remark
@@ -546,7 +546,7 @@ public class SkillNodeController extends BaseController {
         )
     </insert>
 
-    <update id="updateNode" parameterType="com.ruoyi.skill.domain.SkillNode">
+    <update id="updateNode" parameterType="com.cortex.skill.domain.SkillNode">
         UPDATE skill_node
         <set>
             <if test="name != null and name != ''">name = #{name},</if>

@@ -164,7 +164,7 @@ SkillNode selectSkillMdByPackageId(@org.apache.ibatis.annotations.Param("package
 
 **使用方法**：
 ```bash
-mysql -u root -p ruoyi-vue < diagnose-skill-11.sql
+mysql -u root -p cortex-vue < diagnose-skill-11.sql
 ```
 
 ### 2. 诊断文档

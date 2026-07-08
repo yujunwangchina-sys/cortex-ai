@@ -42,7 +42,7 @@
 
 ### 修改文件
 
-`ruoyi-system/src/main/java/com/ruoyi/agent/runtime/prompt/PromptBuilder.java`
+`cortex-system/src/main/java/com/cortex/agent/runtime/prompt/PromptBuilder.java`
 
 ### 添加的内容
 

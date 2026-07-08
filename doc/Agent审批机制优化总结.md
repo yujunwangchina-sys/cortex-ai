@@ -8,7 +8,7 @@
 **解决方案**: 
 - 移除 `sendMessage()` 方法 `finally` 块中的 `selectSession()` 调用
 - 直接将流式内容推送到 `displayMessages` 而不是重新加载
-**文件**: `RuoYi-Vue3/src/views/agent/AgentChat.vue`
+**文件**: `Cortex-Vue3/src/views/agent/AgentChat.vue`
 
 ---
 
@@ -31,8 +31,8 @@
 - 不再消耗线程池资源
 
 **文件**:
-- `ruoyi-system/src/main/java/com/ruoyi/agent/runtime/approval/ApprovalManager.java`
-- `RuoYi-Vue3/src/views/agent/components/ApprovalDialog.vue`
+- `cortex-system/src/main/java/com/cortex/agent/runtime/approval/ApprovalManager.java`
+- `Cortex-Vue3/src/views/agent/components/ApprovalDialog.vue`
 
 ---
 
@@ -52,10 +52,10 @@
 - **调试日志**: 添加详细的调试日志和断点(可后续移除)
 
 **文件**:
-- `ruoyi-system/src/main/java/com/ruoyi/agent/runtime/tool/ToolExecutor.java`
-- `ruoyi-system/src/main/java/com/ruoyi/agent/runtime/approval/ApprovalManager.java`
-- `ruoyi-admin/src/main/java/com/ruoyi/web/controller/agent/AgentRuntimeController.java`
-- `RuoYi-Vue3/src/views/agent/AgentChat.vue`
+- `cortex-system/src/main/java/com/cortex/agent/runtime/tool/ToolExecutor.java`
+- `cortex-system/src/main/java/com/cortex/agent/runtime/approval/ApprovalManager.java`
+- `cortex-admin/src/main/java/com/cortex/web/controller/agent/AgentRuntimeController.java`
+- `Cortex-Vue3/src/views/agent/AgentChat.vue`
 
 ---
 
@@ -75,7 +75,7 @@
 - **full**: 跳过所有审批
 
 **文件**:
-- `ruoyi-system/src/main/java/com/ruoyi/agent/runtime/approval/ApprovalManager.java`
+- `cortex-system/src/main/java/com/cortex/agent/runtime/approval/ApprovalManager.java`
 
 ---
 
@@ -97,8 +97,8 @@
    - 移除未使用的函数: `toggleRejectReason()`, `handleCancel()`
 
 **文件**:
-- `ruoyi-system/src/main/java/com/ruoyi/agent/runtime/prompt/PromptBuilder.java`
-- `RuoYi-Vue3/src/views/agent/components/ApprovalDialog.vue`
+- `cortex-system/src/main/java/com/cortex/agent/runtime/prompt/PromptBuilder.java`
+- `Cortex-Vue3/src/views/agent/components/ApprovalDialog.vue`
 
 ---
 

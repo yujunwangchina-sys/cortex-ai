@@ -5,7 +5,7 @@
 ### 1. 前端部分
 
 #### 1.1 创建 Dashboard 页面
-- **文件**: `RuoYi-Vue3/src/views/index.vue`
+- **文件**: `Cortex-Vue3/src/views/index.vue`
 - **功能**: 
   - 简洁的黑白风格设计
   - 欢迎区域（CortexAI 标题）
@@ -16,13 +16,13 @@
   - 响应式设计
 
 #### 1.2 创建 API 接口
-- **文件**: `RuoYi-Vue3/src/api/dashboard/stats.js`
+- **文件**: `Cortex-Vue3/src/api/dashboard/stats.js`
 - **接口**: `getDashboardStats()` - 获取Dashboard统计数据
 
 ### 2. 后端部分
 
 #### 2.1 创建 Controller
-- **文件**: `ruoyi-admin/src/main/java/com/ruoyi/web/controller/dashboard/DashboardController.java`
+- **文件**: `cortex-admin/src/main/java/com/cortex/web/controller/dashboard/DashboardController.java`
 - **接口**: `GET /dashboard/stats`
 - **返回数据**:
   ```json
@@ -37,35 +37,35 @@
 #### 2.2 Mapper 接口添加统计方法
 
 ##### 2.2.1 AiAgentSessionMapper
-- **文件**: `ruoyi-system/src/main/java/com/ruoyi/agent/mapper/AiAgentSessionMapper.java`
+- **文件**: `cortex-system/src/main/java/com/cortex/agent/mapper/AiAgentSessionMapper.java`
 - **新增方法**: `int countSessions()`
-- **SQL文件**: `ruoyi-system/src/main/resources/mapper/agent/AiAgentSessionMapper.xml`
+- **SQL文件**: `cortex-system/src/main/resources/mapper/agent/AiAgentSessionMapper.xml`
 - **SQL**: `select count(*) from ai_agent_session`
 
 ##### 2.2.2 AiPluginMapper
-- **文件**: `ruoyi-system/src/main/java/com/ruoyi/plugin/mapper/AiPluginMapper.java`
+- **文件**: `cortex-system/src/main/java/com/cortex/plugin/mapper/AiPluginMapper.java`
 - **新增方法**: `int countPlugins()`
-- **SQL文件**: `ruoyi-system/src/main/resources/mapper/plugin/AiPluginMapper.xml`
+- **SQL文件**: `cortex-system/src/main/resources/mapper/plugin/AiPluginMapper.xml`
 - **SQL**: `select count(*) from ai_plugin`
 
 ##### 2.2.3 SkillNodeMapper
-- **文件**: `ruoyi-system/src/main/java/com/ruoyi/skill/mapper/SkillNodeMapper.java`
+- **文件**: `cortex-system/src/main/java/com/cortex/skill/mapper/SkillNodeMapper.java`
 - **新增方法**: `int countSkillPackages()`
-- **SQL文件**: `ruoyi-system/src/main/resources/mapper/skill/SkillNodeMapper.xml`
+- **SQL文件**: `cortex-system/src/main/resources/mapper/skill/SkillNodeMapper.xml`
 - **SQL**: `select count(*) from skill_node where parent_id = 0 and is_directory = 1`
 - **说明**: 只统计第一层文件夹（技能包）
 
 ##### 2.2.4 SysUserMapper
-- **文件**: `ruoyi-system/src/main/java/com/ruoyi/system/mapper/SysUserMapper.java`
+- **文件**: `cortex-system/src/main/java/com/cortex/system/mapper/SysUserMapper.java`
 - **新增方法**: `int countActiveUsers()`
-- **SQL文件**: `ruoyi-system/src/main/resources/mapper/system/SysUserMapper.xml`
+- **SQL文件**: `cortex-system/src/main/resources/mapper/system/SysUserMapper.xml`
 - **SQL**: `select count(*) from sys_user where del_flag = '0'`
 - **说明**: 只统计未删除的活跃用户
 
 ### 3. 登录页面重构
 
 #### 3.1 设计风格
-- **文件**: `RuoYi-Vue3/src/views/login.vue`
+- **文件**: `Cortex-Vue3/src/views/login.vue`
 - **风格**: 简洁黑白风格
 - **布局**: 左黑右白，左侧品牌展示，右侧登录表单
 - **特性**:

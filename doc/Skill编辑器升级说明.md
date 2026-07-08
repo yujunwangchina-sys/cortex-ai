@@ -30,7 +30,7 @@
 
 ### 1. 安装依赖
 
-在 `RuoYi-Vue3` 目录下运行安装脚本:
+在 `Cortex-Vue3` 目录下运行安装脚本:
 
 ```bash
 # Windows
@@ -55,7 +55,7 @@ npm run dev
 ### 新增组件
 
 ```
-RuoYi-Vue3/src/views/skill/components/
+Cortex-Vue3/src/views/skill/components/
 ├── CodeEditor.vue           # Monaco代码编辑器组件
 ├── MarkdownEditorNew.vue    # TOAST UI Markdown编辑器组件
 ├── SkillEditor.vue          # 主编辑器组件(已更新)

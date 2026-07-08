@@ -36,22 +36,22 @@ SELECT * FROM sys_menu WHERE menu_name LIKE '%Skill%';
 ### 已创建的文件：
 
 #### 1. Domain层（实体类）
-- `ruoyi-system/src/main/java/com/ruoyi/skill/domain/SkillNode.java`
+- `cortex-system/src/main/java/com/cortex/skill/domain/SkillNode.java`
 
 #### 2. Mapper层（数据访问）
-- `ruoyi-system/src/main/java/com/ruoyi/skill/mapper/SkillNodeMapper.java`
-- `ruoyi-system/src/main/resources/mapper/skill/SkillNodeMapper.xml`
+- `cortex-system/src/main/java/com/cortex/skill/mapper/SkillNodeMapper.java`
+- `cortex-system/src/main/resources/mapper/skill/SkillNodeMapper.xml`
 
 #### 3. Service层（业务逻辑）
-- `ruoyi-system/src/main/java/com/ruoyi/skill/service/ISkillNodeService.java`
-- `ruoyi-system/src/main/java/com/ruoyi/skill/service/impl/SkillNodeServiceImpl.java`
+- `cortex-system/src/main/java/com/cortex/skill/service/ISkillNodeService.java`
+- `cortex-system/src/main/java/com/cortex/skill/service/impl/SkillNodeServiceImpl.java`
 
 #### 4. Controller层（控制器）
-- `ruoyi-admin/src/main/java/com/ruoyi/web/controller/skill/SkillNodeController.java`
+- `cortex-admin/src/main/java/com/cortex/web/controller/skill/SkillNodeController.java`
 
 #### 5. 前端页面
-- `RuoYi-Vue3/src/views/skill/index.vue` - 主页面
-- `RuoYi-Vue3/src/views/skill/components/` - 组件目录
+- `Cortex-Vue3/src/views/skill/index.vue` - 主页面
+- `Cortex-Vue3/src/views/skill/components/` - 组件目录
   - SkillTree.vue - 技能树
   - SkillEditor.vue - 编辑器
   - MarkdownEditor.vue - Markdown编辑器
@@ -61,30 +61,30 @@ SELECT * FROM sys_menu WHERE menu_name LIKE '%Skill%';
   - ContextMenu.vue - 右键菜单
 
 #### 6. API接口
-- `RuoYi-Vue3/src/api/skill/skill.js`
+- `Cortex-Vue3/src/api/skill/skill.js`
 
 ## 四、启动验证
 
 ### 1. 编译后端
 
 ```bash
-cd e:\java\RuoYi-Vue
+cd e:\java\Cortex-Vue
 mvn clean install
 ```
 
 ### 2. 启动后端服务
 
-运行 `RuoYiApplication.java` 或执行：
+运行 `CortexApplication.java` 或执行：
 
 ```bash
-cd ruoyi-admin
+cd cortex-admin
 mvn spring-boot:run
 ```
 
 ### 3. 启动前端
 
 ```bash
-cd RuoYi-Vue3
+cd Cortex-Vue3
 npm run dev
 ```
 

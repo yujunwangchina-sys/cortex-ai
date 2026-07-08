@@ -131,7 +131,7 @@
 ### 1. 后端改进
 
 #### 1.1 新增配置请求对象
-**文件**: `ruoyi-system/src/main/java/com/ruoyi/plugin/domain/vo/McpPackageConfigRequest.java`
+**文件**: `cortex-system/src/main/java/com/cortex/plugin/domain/vo/McpPackageConfigRequest.java`
 
 包含以下字段：
 - `packageName`: 包名（必填）
@@ -145,7 +145,7 @@
 - `description`: 描述
 
 #### 1.2 更新服务接口
-**文件**: `ruoyi-system/src/main/java/com/ruoyi/plugin/service/IMcpPackageScanService.java`
+**文件**: `cortex-system/src/main/java/com/cortex/plugin/service/IMcpPackageScanService.java`
 
 修改方法签名：
 ```java
@@ -157,7 +157,7 @@ Long autoConfigurePlugin(McpPackageConfigRequest configRequest);
 ```
 
 #### 1.3 更新服务实现
-**文件**: `ruoyi-system/src/main/java/com/ruoyi/plugin/service/impl/McpPackageScanServiceImpl.java`
+**文件**: `cortex-system/src/main/java/com/cortex/plugin/service/impl/McpPackageScanServiceImpl.java`
 
 改进：
 - 接收完整的配置请求对象
@@ -168,7 +168,7 @@ Long autoConfigurePlugin(McpPackageConfigRequest configRequest);
 - 添加详细日志记录
 
 #### 1.4 更新控制器
-**文件**: `ruoyi-admin/src/main/java/com/ruoyi/web/controller/plugin/AiPluginController.java`
+**文件**: `cortex-admin/src/main/java/com/cortex/web/controller/plugin/AiPluginController.java`
 
 改进：
 - 接收 `McpPackageConfigRequest` 对象而不是 `McpPackageInfo`
@@ -178,7 +178,7 @@ Long autoConfigurePlugin(McpPackageConfigRequest configRequest);
 ### 2. 前端已完成
 
 #### 2.1 配置对话框
-**文件**: `RuoYi-Vue3/src/views/plugin/list/index.vue`
+**文件**: `Cortex-Vue3/src/views/plugin/list/index.vue`
 
 已实现功能：
 - ✅ 插件名称可编辑
@@ -337,14 +337,14 @@ Long autoConfigurePlugin(McpPackageConfigRequest configRequest);
 ## 相关文件清单
 
 ### 后端
-- `ruoyi-system/src/main/java/com/ruoyi/plugin/domain/vo/McpPackageConfigRequest.java` ⭐ 新增
-- `ruoyi-system/src/main/java/com/ruoyi/plugin/service/IMcpPackageScanService.java` ✏️ 修改
-- `ruoyi-system/src/main/java/com/ruoyi/plugin/service/impl/McpPackageScanServiceImpl.java` ✏️ 修改
-- `ruoyi-admin/src/main/java/com/ruoyi/web/controller/plugin/AiPluginController.java` ✏️ 修改
+- `cortex-system/src/main/java/com/cortex/plugin/domain/vo/McpPackageConfigRequest.java` ⭐ 新增
+- `cortex-system/src/main/java/com/cortex/plugin/service/IMcpPackageScanService.java` ✏️ 修改
+- `cortex-system/src/main/java/com/cortex/plugin/service/impl/McpPackageScanServiceImpl.java` ✏️ 修改
+- `cortex-admin/src/main/java/com/cortex/web/controller/plugin/AiPluginController.java` ✏️ 修改
 
 ### 前端
-- `RuoYi-Vue3/src/views/plugin/list/index.vue` ✏️ 已包含完整配置表单
-- `RuoYi-Vue3/src/api/plugin/plugin.js` ✏️ 已包含API接口
+- `Cortex-Vue3/src/views/plugin/list/index.vue` ✏️ 已包含完整配置表单
+- `Cortex-Vue3/src/api/plugin/plugin.js` ✏️ 已包含API接口
 
 ## 版本信息
 - 实现日期：2026-06-30

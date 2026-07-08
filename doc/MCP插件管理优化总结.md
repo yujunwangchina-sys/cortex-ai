@@ -159,7 +159,7 @@ if (isAlreadyRunning) {
 mvn spring-boot:run
 
 # 查看日志，确认插件启动
-tail -f ruoyi-admin/target/logs/sys-info.log | grep MCP
+tail -f cortex-admin/target/logs/sys-info.log | grep MCP
 
 # 应该看到：
 # [INFO] MCP进程启动成功 [plugin=xxx, pid=xxx]

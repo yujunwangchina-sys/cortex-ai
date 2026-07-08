@@ -33,7 +33,7 @@ Agent调用工具 → McpSessionManager.getClient() → McpClient（JSON-RPC 2.0
 
 ```bash
 # 使用MySQL客户端或Navicat等工具执行
-# 文件位置: e:\java\RuoYi-Vue\sql\ai_plugin_system.sql
+# 文件位置: e:\java\Cortex-Vue\sql\ai_plugin_system.sql
 ```
 
 脚本内容包括：
@@ -48,8 +48,8 @@ Agent调用工具 → McpSessionManager.getClient() → McpClient（JSON-RPC 2.0
 ```bash
 # 如果使用IDEA，直接点击重启按钮
 # 或使用命令行启动
-cd e:\java\RuoYi-Vue
-mvn spring-boot:run -pl ruoyi-admin
+cd e:\java\Cortex-Vue
+mvn spring-boot:run -pl cortex-admin
 ```
 
 **预期日志输出：**
@@ -69,7 +69,7 @@ mvn spring-boot:run -pl ruoyi-admin
 ### 第3步：启动前端服务
 
 ```bash
-cd e:\java\RuoYi-Vue\RuoYi-Vue3
+cd e:\java\Cortex-Vue\Cortex-Vue3
 npm run dev
 # 或
 yarn dev
@@ -304,7 +304,7 @@ pnpm dev
 **原因**：前端代码未编译或路由未注册
 
 **解决**：
-1. 确认前端代码已存在：`e:\java\RuoYi-Vue\RuoYi-Vue3\src\views\plugin\`
+1. 确认前端代码已存在：`e:\java\Cortex-Vue\Cortex-Vue3\src\views\plugin\`
 2. 重新编译前端：`npm run dev`
 3. 清除浏览器缓存，强制刷新（Ctrl+F5）
 
@@ -470,9 +470,9 @@ pnpm dev
 4. **截图**：错误界面截图
 
 **联系方式**：
-- 📧 Email: support@ruoyi.vip
+- 📧 Email: support@cortex.vip
 - 💬 QQ群: 若依交流群
-- 🌐 官网: http://ruoyi.vip
+- 🌐 官网: http://cortex.vip
 
 ---
 

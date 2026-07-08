@@ -134,12 +134,12 @@
 
 ### 1. 备份数据库
 ```bash
-mysqldump -u root -p ruoyi-vue > backup_before_skill_migration_20240703.sql
+mysqldump -u root -p cortex-vue > backup_before_skill_migration_20240703.sql
 ```
 
 ### 2. 执行SQL迁移
 ```bash
-mysql -u root -p ruoyi-vue < sql/skill_two_tier_migration.sql
+mysql -u root -p cortex-vue < sql/skill_two_tier_migration.sql
 ```
 
 ### 3. 验证迁移结果
@@ -156,7 +156,7 @@ mysql -u root -p ruoyi-vue < sql/skill_two_tier_migration.sql
 
 ### 5. 清除前端缓存并重新构建
 ```bash
-cd RuoYi-Vue3
+cd Cortex-Vue3
 npm run build:prod
 ```
 
@@ -192,7 +192,7 @@ npm run build:prod
 
 1. 恢复数据库备份
 ```bash
-mysql -u root -p ruoyi-vue < backup_before_skill_migration_20240703.sql
+mysql -u root -p cortex-vue < backup_before_skill_migration_20240703.sql
 ```
 
 2. 回滚代码到上一个版本

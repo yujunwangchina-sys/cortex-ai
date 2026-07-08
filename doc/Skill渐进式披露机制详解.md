@@ -1,7 +1,7 @@
 # Skill渐进式披露机制详解
 
 **文档日期**: 2026-07-03  
-**适用版本**: RuoYi-Vue Skill System v2.0
+**适用版本**: Cortex-Vue Skill System v2.0
 
 ---
 

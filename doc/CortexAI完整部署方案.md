@@ -247,7 +247,7 @@ docker run -d \
   --restart unless-stopped \
   -p 3306:3306 \
   -e MYSQL_ROOT_PASSWORD=YourStrongPassword123! \
-  -e MYSQL_DATABASE=ry-vue \
+  -e MYSQL_DATABASE=cortex-vue \
   -e MYSQL_CHARACTER_SET_SERVER=utf8mb4 \
   -e MYSQL_COLLATION_SERVER=utf8mb4_unicode_ci \
   -v /opt/cortexai/mysql/data:/var/lib/mysql \
@@ -290,7 +290,7 @@ docker exec -it mysql-cortexai mysql -uroot -p
 
 # 或通过客户端连接后执行 SQL 脚本
 # 导入项目提供的初始化脚本（如果有）
-mysql -h localhost -uroot -p ry-vue < /path/to/init.sql
+mysql -h localhost -uroot -p cortex-vue < /path/to/init.sql
 ```
 
 ---
@@ -431,13 +431,13 @@ journalctl -u hermes-agent -f
 #### 2.1 构建项目
 
 ```bash
-cd /path/to/RuoYi-Vue
+cd /path/to/Cortex-Vue
 
 # 使用 Maven 打包
 mvn clean package -DskipTests
 
 # 打包后的 JAR 位于
-# ruoyi-admin/target/ruoyi-admin.jar
+# cortex-admin/target/cortex-admin.jar
 ```
 
 #### 2.2 配置生产环境
@@ -454,7 +454,7 @@ spring:
   datasource:
     druid:
       master:
-        url: jdbc:mysql://localhost:3306/ry-vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        url: jdbc:mysql://localhost:3306/cortex-vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
         password: YourStrongPassword123!
   
@@ -476,13 +476,13 @@ knowledge:
     collection-prefix: cortexai_kb_
 
 # 文件上传路径
-ruoyi:
+cortex:
   profile: /opt/cortexai/data/upload
 
 # 日志配置
 logging:
   level:
-    com.ruoyi: info
+    com.cortex: info
     org.springframework: warn
   file:
     path: /opt/cortexai/logs
@@ -493,7 +493,7 @@ logging:
 ```bash
 # 创建部署目录
 mkdir -p /opt/cortexai/app
-cp ruoyi-admin/target/ruoyi-admin.jar /opt/cortexai/app/
+cp cortex-admin/target/cortex-admin.jar /opt/cortexai/app/
 
 # 创建数据目录
 mkdir -p /opt/cortexai/data/upload
@@ -526,7 +526,7 @@ ExecStart=/usr/bin/java \
   -XX:MaxGCPauseMillis=200 \
   -Dspring.profiles.active=prod \
   -Dspring.config.additional-location=/opt/cortexai/application-prod.yml \
-  -jar ruoyi-admin.jar
+  -jar cortex-admin.jar
 
 Restart=always
 RestartSec=10
@@ -561,7 +561,7 @@ curl http://localhost:8080/
 #### 3.1 构建前端
 
 ```bash
-cd RuoYi-Vue3
+cd Cortex-Vue3
 
 # 安装依赖
 npm install
@@ -665,7 +665,7 @@ server {
 ```bash
 # 复制构建产物
 mkdir -p /opt/cortexai/web
-cp -r RuoYi-Vue3/dist/* /opt/cortexai/web/
+cp -r Cortex-Vue3/dist/* /opt/cortexai/web/
 
 # 修改权限
 chown -R nginx:nginx /opt/cortexai/web
@@ -794,7 +794,7 @@ mysqldump -h localhost -uroot -p'YourPassword' \
   --single-transaction \
   --routines \
   --triggers \
-  ry-vue | gzip > $BACKUP_DIR/ry-vue_$DATE.sql.gz
+  cortex-vue | gzip > $BACKUP_DIR/cortex-vue_$DATE.sql.gz
 
 # 删除7天前的备份
 find $BACKUP_DIR -name "*.sql.gz" -mtime +7 -delete
@@ -979,7 +979,7 @@ redis-cli -a 'YourPassword' ping
 
 # 5. 手动启动排查
 cd /opt/cortexai/app
-java -jar ruoyi-admin.jar --spring.profiles.active=prod
+java -jar cortex-admin.jar --spring.profiles.active=prod
 ```
 
 #### 常见错误
@@ -1166,7 +1166,7 @@ docker run -d \
   --restart unless-stopped \
   -p 3306:3306 \
   -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
-  -e MYSQL_DATABASE=ry-vue \
+  -e MYSQL_DATABASE=cortex-vue \
   -v $DEPLOY_DIR/mysql/data:/var/lib/mysql \
   mysql:8.0
 
@@ -1301,7 +1301,7 @@ sudo /opt/cortexai/deploy.sh
 # MySQL
 MYSQL_HOST=localhost
 MYSQL_PORT=3306
-MYSQL_DATABASE=ry-vue
+MYSQL_DATABASE=cortex-vue
 MYSQL_USERNAME=root
 MYSQL_PASSWORD=YourPassword
 

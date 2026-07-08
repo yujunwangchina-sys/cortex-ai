@@ -157,9 +157,9 @@ public Process startMcpProcess(AiPlugin plugin, boolean redirectOutput) throws E
 
 ## 相关文件
 
-- `ruoyi-system\src\main\java\com\ruoyi\plugin\mcp\McpClient.java`
-- `ruoyi-system\src\main\java\com\ruoyi\plugin\mcp\McpProcessManager.java`
-- `ruoyi-system\src\main\java\com\ruoyi\plugin\service\impl\AiPluginServiceImpl.java`
+- `cortex-system\src\main\java\com\cortex\plugin\mcp\McpClient.java`
+- `cortex-system\src\main\java\com\cortex\plugin\mcp\McpProcessManager.java`
+- `cortex-system\src\main\java\com\cortex\plugin\service\impl\AiPluginServiceImpl.java`
 
 ## 注意事项
 

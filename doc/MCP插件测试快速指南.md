@@ -52,8 +52,8 @@ pip install uv
 
 1. **启动后端服务**
    ```bash
-   cd e:\java\RuoYi-Vue
-   cd ruoyi-admin
+   cd e:\java\Cortex-Vue
+   cd cortex-admin
    mvn spring-boot:run
    ```
 
@@ -149,10 +149,10 @@ echo %PATH%
 ### 后端日志
 ```bash
 # 查看实时日志
-tail -f ruoyi-admin/target/logs/sys-info.log
+tail -f cortex-admin/target/logs/sys-info.log
 
 # 搜索MCP相关日志
-grep "MCP" ruoyi-admin/target/logs/sys-info.log
+grep "MCP" cortex-admin/target/logs/sys-info.log
 ```
 
 ### 前端控制台

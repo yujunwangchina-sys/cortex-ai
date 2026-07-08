@@ -19,7 +19,7 @@ public void fileDownload(String fileName, Boolean delete, HttpServletResponse re
 **关键代码：**
 ```java
 String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
-String filePath = RuoYiConfig.getDownloadPath() + fileName;
+String filePath = CortexConfig.getDownloadPath() + fileName;
 ```
 
 **文件名必须包含下划线 `_`**，格式为：`{前缀}_{真实文件名}`
@@ -33,7 +33,7 @@ String filePath = RuoYiConfig.getDownloadPath() + fileName;
 
 **配置路径：**
 ```java
-// RuoYiConfig.java
+// CortexConfig.java
 public static String getDownloadPath() {
     return getProfile() + "/download/";
 }
@@ -41,11 +41,11 @@ public static String getDownloadPath() {
 
 **默认路径（application.yml配置）：**
 ```yaml
-ruoyi:
-  profile: D:/ruoyi/uploadPath
+cortex:
+  profile: D:/cortex/uploadPath
 ```
 
-**实际下载路径：** `D:/ruoyi/uploadPath/download/`
+**实际下载路径：** `D:/cortex/uploadPath/download/`
 
 ### 4. 下载文件名生成规则
 
@@ -69,16 +69,16 @@ String realFileName = System.currentTimeMillis() + fileName.substring(fileName.i
 #### ❌ 方案1：使用 /common/download（不推荐）
 
 **需要满足的条件：**
-1. 文件必须存储在：`D:/ruoyi/uploadPath/download/` 目录
+1. 文件必须存储在：`D:/cortex/uploadPath/download/` 目录
 2. 数据库存储格式：`{uuid}_{原始文件名}`
 3. 下载URL：`/common/download?fileName={uuid}_{原始文件名}`
 
 **示例：**
 ```sql
 -- file_name: 知识库列表.md
--- file_path: D:/ruoyi/uploadPath/download/a1b2c3d4e5f6_{原始文件名}
+-- file_path: D:/cortex/uploadPath/download/a1b2c3d4e5f6_{原始文件名}
 INSERT INTO ai_agent_file (file_name, file_path) 
-VALUES ('知识库列表.md', 'D:/ruoyi/uploadPath/download/uuid32位_知识库列表.md');
+VALUES ('知识库列表.md', 'D:/cortex/uploadPath/download/uuid32位_知识库列表.md');
 ```
 
 **缺点：**
@@ -107,7 +107,7 @@ public void download(@PathVariable Long fileId, HttpServletResponse response)
 INSERT INTO ai_agent_file (file_name, file_path) 
 VALUES (
     '知识库列表.md',  -- 原始文件名
-    'D:/ruoyi/uploadPath/agent-workspace/cortex/admin/session123/uuid32位.md'  -- 实际路径
+    'D:/cortex/uploadPath/agent-workspace/cortex/admin/session123/uuid32位.md'  -- 实际路径
 );
 ```
 
@@ -167,16 +167,16 @@ public void download(@PathVariable Long fileId, HttpServletResponse response) {
 String dbFileName = UUID.randomUUID().toString().replace("-", "") + "_" + originalFileName;
 
 // file_path必须是download目录
-String dbFilePath = RuoYiConfig.getDownloadPath() + dbFileName;
+String dbFilePath = CortexConfig.getDownloadPath() + dbFileName;
 
 // 示例
 file_name: "a1b2c3d4e5f6_知识库列表.md"
-file_path: "D:/ruoyi/uploadPath/download/a1b2c3d4e5f6_知识库列表.md"
+file_path: "D:/cortex/uploadPath/download/a1b2c3d4e5f6_知识库列表.md"
 ```
 
 **文件必须存储在：**
 ```
-D:/ruoyi/uploadPath/download/a1b2c3d4e5f6_知识库列表.md
+D:/cortex/uploadPath/download/a1b2c3d4e5f6_知识库列表.md
 ```
 
 **下载链接：**
