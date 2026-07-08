@@ -212,10 +212,10 @@ shadow = host.attachShadow({ mode: 'open' });
 
 ```bash
 # 源文件位置
-ruoyi-admin/src/main/resources/static/widget/cortex-chat.js
+cortex-admin/src/main/resources/static/widget/cortex-chat.js
 
 # 编译后位置
-ruoyi-admin/target/classes/static/widget/cortex-chat.js
+cortex-admin/target/classes/static/widget/cortex-chat.js
 ```
 
 修改源文件后,需要重新编译项目才能生效:

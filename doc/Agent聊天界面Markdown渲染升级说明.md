@@ -28,7 +28,7 @@
 
 ### 1. 安装依赖
 
-在 `RuoYi-Vue3` 目录下执行：
+在 `Cortex-Vue3` 目录下执行：
 
 ```bash
 npm install markdown-it@^14.0.0

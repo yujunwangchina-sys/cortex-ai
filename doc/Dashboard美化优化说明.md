@@ -187,21 +187,21 @@ int countActiveUsersByDate(String date)     // 按日期统计活跃用户数
 ## 文件清单
 
 ### 前端文件
-- `RuoYi-Vue3/src/views/index.vue` - Dashboard 主页面
-- `RuoYi-Vue3/src/api/dashboard/stats.js` - API 接口定义
+- `Cortex-Vue3/src/views/index.vue` - Dashboard 主页面
+- `Cortex-Vue3/src/api/dashboard/stats.js` - API 接口定义
 
 ### 后端文件
-- `ruoyi-admin/src/main/java/com/ruoyi/web/controller/dashboard/DashboardController.java`
-- `ruoyi-system/src/main/java/com/ruoyi/agent/mapper/AiAgentSessionMapper.java`
-- `ruoyi-system/src/main/java/com/ruoyi/plugin/mapper/AiPluginMapper.java`
-- `ruoyi-system/src/main/java/com/ruoyi/skill/mapper/SkillNodeMapper.java`
-- `ruoyi-system/src/main/java/com/ruoyi/system/mapper/SysUserMapper.java`
+- `cortex-admin/src/main/java/com/cortex/web/controller/dashboard/DashboardController.java`
+- `cortex-system/src/main/java/com/cortex/agent/mapper/AiAgentSessionMapper.java`
+- `cortex-system/src/main/java/com/cortex/plugin/mapper/AiPluginMapper.java`
+- `cortex-system/src/main/java/com/cortex/skill/mapper/SkillNodeMapper.java`
+- `cortex-system/src/main/java/com/cortex/system/mapper/SysUserMapper.java`
 
 ### XML Mapper 文件
-- `ruoyi-system/src/main/resources/mapper/agent/AiAgentSessionMapper.xml`
-- `ruoyi-system/src/main/resources/mapper/plugin/AiPluginMapper.xml`
-- `ruoyi-system/src/main/resources/mapper/skill/SkillNodeMapper.xml`
-- `ruoyi-system/src/main/resources/mapper/system/SysUserMapper.xml`
+- `cortex-system/src/main/resources/mapper/agent/AiAgentSessionMapper.xml`
+- `cortex-system/src/main/resources/mapper/plugin/AiPluginMapper.xml`
+- `cortex-system/src/main/resources/mapper/skill/SkillNodeMapper.xml`
+- `cortex-system/src/main/resources/mapper/system/SysUserMapper.xml`
 
 ## 技术特点
 

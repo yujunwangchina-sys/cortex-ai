@@ -6,7 +6,7 @@
 
 ```
 java.lang.RuntimeException: MCP请求超时
-at com.ruoyi.plugin.mcp.McpClient.sendRequest(McpClient.java:135)
+at com.cortex.plugin.mcp.McpClient.sendRequest(McpClient.java:135)
 ```
 
 ## 根本原因

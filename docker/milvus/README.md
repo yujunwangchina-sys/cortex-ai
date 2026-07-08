@@ -66,7 +66,7 @@ docker-compose down -v
 ### MySQL 配置
 
 - **Root 密码**: `cortexai@2026`
-- **默认数据库**: `ry-vue`
+- **默认数据库**: `cortex-vue`
 - **字符集**: `utf8mb4`
 - **时区**: `Asia/Shanghai`
 - **配置文件**: `my.cnf`
@@ -131,7 +131,7 @@ spring:
   datasource:
     druid:
       master:
-        url: jdbc:mysql://localhost:3306/ry-vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        url: jdbc:mysql://localhost:3306/cortex-vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
         password: cortexai@2026
   
@@ -157,7 +157,7 @@ spring:
   datasource:
     druid:
       master:
-        url: jdbc:mysql://mysql:3306/ry-vue?...
+        url: jdbc:mysql://mysql:3306/cortex-vue?...
         
   data:
     redis:

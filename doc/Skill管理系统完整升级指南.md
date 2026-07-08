@@ -180,7 +180,7 @@ WHERE s.node_type = 'skill' AND s.name = 'SKILL.md';
 
 ### 安装命令
 ```bash
-cd RuoYi-Vue3
+cd Cortex-Vue3
 npm install
 ```
 
@@ -191,7 +191,7 @@ npm install
 ### 1. 数据库升级
 ```bash
 # 执行SQL脚本
-mysql -u root -p ry-vue < sql/skill_node_upgrade.sql
+mysql -u root -p cortex-vue < sql/skill_node_upgrade.sql
 ```
 
 ### 2. 后端编译
@@ -208,14 +208,14 @@ Build -> Rebuild Project
 
 ### 3. 前端安装依赖
 ```bash
-cd RuoYi-Vue3
+cd Cortex-Vue3
 npm install
 ```
 
 ### 4. 启动服务
 ```bash
 # 后端
-启动 RuoYiApplication
+启动 CortexApplication
 
 # 前端
 npm run dev
@@ -293,7 +293,7 @@ import 'vditor/dist/index.css'
 ### 数据库字段不存在
 ```bash
 # 确认是否执行了升级脚本
-mysql -u root -p ry-vue < sql/skill_node_upgrade.sql
+mysql -u root -p cortex-vue < sql/skill_node_upgrade.sql
 
 # 检查字段
 SHOW COLUMNS FROM skill_node;

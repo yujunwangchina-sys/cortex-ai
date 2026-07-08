@@ -99,9 +99,9 @@ npx -y mcp-echarts --help  # ✅ 命令行正常
 
 ## 相关文件
 
-- `e:\java\RuoYi-Vue\ruoyi-system\src\main\java\com\ruoyi\plugin\mcp\McpProcessManager.java`
-- `e:\java\RuoYi-Vue\ruoyi-system\src\main\java\com\ruoyi\plugin\mcp\McpClient.java`
-- `e:\java\RuoYi-Vue\ruoyi-system\src\main\java\com\ruoyi\plugin\service\impl\AiPluginServiceImpl.java`
+- `e:\java\Cortex-Vue\cortex-system\src\main\java\com\cortex\plugin\mcp\McpProcessManager.java`
+- `e:\java\Cortex-Vue\cortex-system\src\main\java\com\cortex\plugin\mcp\McpClient.java`
+- `e:\java\Cortex-Vue\cortex-system\src\main\java\com\cortex\plugin\service\impl\AiPluginServiceImpl.java`
 
 ## 测试步骤
 

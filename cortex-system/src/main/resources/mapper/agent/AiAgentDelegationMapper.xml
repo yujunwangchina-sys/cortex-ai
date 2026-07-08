@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cortex.agent.mapper.AiAgentDelegationMapper">
+
+    <select id="selectDelegateAgentIdsByAgentId" parameterType="Long" resultType="Long">
+        select delegate_agent_id from ai_agent_delegation where agent_id = #{agentId}
+    </select>
+
+    <insert id="batchInsertAgentDelegation" parameterType="java.util.List">
+        insert into ai_agent_delegation (agent_id, delegate_agent_id) values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.agentId}, #{item.delegateAgentId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteAgentDelegationByAgentId" parameterType="Long">
+        delete from ai_agent_delegation where agent_id = #{agentId}
+    </delete>
+
+</mapper>

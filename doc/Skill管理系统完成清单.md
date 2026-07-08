@@ -140,9 +140,9 @@
 ## 📦 文件结构
 
 ```
-RuoYi-Vue/
-├── ruoyi-system/
-│   └── src/main/java/com/ruoyi/skill/
+Cortex-Vue/
+├── cortex-system/
+│   └── src/main/java/com/cortex/skill/
 │       ├── domain/
 │       │   └── SkillNode.java                    ✅
 │       ├── mapper/
@@ -151,9 +151,9 @@ RuoYi-Vue/
 │           ├── ISkillNodeService.java            ✅
 │           └── impl/
 │               └── SkillNodeServiceImpl.java     ✅
-├── ruoyi-system/src/main/resources/mapper/skill/
+├── cortex-system/src/main/resources/mapper/skill/
 │   └── SkillNodeMapper.xml                        ✅
-├── ruoyi-admin/src/main/java/com/ruoyi/web/controller/
+├── cortex-admin/src/main/java/com/cortex/web/controller/
 │   ├── skill/
 │   │   └── SkillNodeController.java              ✅
 │   └── plugin/
@@ -165,7 +165,7 @@ RuoYi-Vue/
 │   ├── Skill管理系统完成清单.md                   ✅
 │   └── Skill管理后端实现示例.md                   ✅
 ├── install-skill-system.bat                       ✅
-└── RuoYi-Vue3/
+└── Cortex-Vue3/
     └── src/
         ├── api/skill/
         │   └── skill.js                           ✅
@@ -202,11 +202,11 @@ mvn clean install
 ### 3. 启动服务
 ```bash
 # 启动后端
-cd ruoyi-admin
+cd cortex-admin
 mvn spring-boot:run
 
 # 启动前端（新窗口）
-cd RuoYi-Vue3
+cd Cortex-Vue3
 npm run dev
 ```
 

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cortex.knowledge.mapper.AiKnowledgeChunkMapper">
+
+    <resultMap type="AiKnowledgeChunk" id="AiKnowledgeChunkResult">
+        <result property="id"           column="id"            />
+        <result property="kbId"         column="kb_id"         />
+        <result property="documentId"   column="document_id"   />
+        <result property="chunkIndex"   column="chunk_index"   />
+        <result property="content"      column="content"       />
+        <result property="tokenCount"   column="token_count"   />
+        <result property="milvusId"     column="milvus_id"     />
+        <result property="createTime"   column="create_time"   />
+        <result property="imagePath"        column="image_path"        />
+        <result property="imageDescription" column="image_description" />
+    </resultMap>
+
+    <sql id="selectAiKnowledgeChunkVo">
+        select id, kb_id, document_id, chunk_index, content, token_count, milvus_id, image_path, image_description, create_time
+        from ai_knowledge_chunk
+    </sql>
+
+    <select id="selectAiKnowledgeChunkById" parameterType="Long" resultMap="AiKnowledgeChunkResult">
+        <include refid="selectAiKnowledgeChunkVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectChunksByDocumentId" parameterType="Long" resultMap="AiKnowledgeChunkResult">
+        <include refid="selectAiKnowledgeChunkVo"/>
+        where document_id = #{documentId}
+        order by chunk_index asc
+    </select>
+
+    <select id="selectChunksByKbId" parameterType="Long" resultMap="AiKnowledgeChunkResult">
+        <include refid="selectAiKnowledgeChunkVo"/>
+        where kb_id = #{kbId}
+        order by document_id asc, chunk_index asc
+    </select>
+
+    <insert id="insertAiKnowledgeChunk" parameterType="AiKnowledgeChunk" useGeneratedKeys="true" keyProperty="id">
+        insert into ai_knowledge_chunk (kb_id, document_id, chunk_index, content, token_count, milvus_id, image_path, image_description, create_time)
+        values (#{kbId}, #{documentId}, #{chunkIndex}, #{content}, #{tokenCount}, #{milvusId}, #{imagePath}, #{imageDescription}, NOW())
+    </insert>
+
+    <insert id="batchInsertChunks" parameterType="java.util.List">
+        insert into ai_knowledge_chunk (kb_id, document_id, chunk_index, content, token_count, milvus_id, image_path, image_description, create_time)
+        values
+        <foreach collection="list" item="chunk" separator=",">
+            (#{chunk.kbId}, #{chunk.documentId}, #{chunk.chunkIndex}, #{chunk.content}, #{chunk.tokenCount}, #{chunk.milvusId}, #{chunk.imagePath}, #{chunk.imageDescription}, NOW())
+        </foreach>
+    </insert>
+
+    <delete id="deleteByDocumentId" parameterType="Long">
+        delete from ai_knowledge_chunk where document_id = #{documentId}
+    </delete>
+
+    <delete id="deleteByKbId" parameterType="Long">
+        delete from ai_knowledge_chunk where kb_id = #{kbId}
+    </delete>
+
+    <select id="countByKbId" parameterType="Long" resultType="int">
+        select count(*) from ai_knowledge_chunk where kb_id = #{kbId}
+    </select>
+
+</mapper>

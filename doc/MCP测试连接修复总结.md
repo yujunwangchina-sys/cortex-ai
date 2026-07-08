@@ -8,7 +8,7 @@
 
 ### 1. McpProcessManager.java
 
-**文件路径**: `e:\java\RuoYi-Vue\ruoyi-system\src\main\java\com\ruoyi\plugin\mcp\McpProcessManager.java`
+**文件路径**: `e:\java\Cortex-Vue\cortex-system\src\main\java\com\cortex\plugin\mcp\McpProcessManager.java`
 
 **修改位置**: `startMcpProcess()` 方法（约80-140行）
 

@@ -7,7 +7,7 @@
 ## 问题原因分析
 
 ### 1. SSE流的 `done` 事件未正确处理
-**位置**：`RuoYi-Vue3/src/views/agent/AgentChat.vue` 的 `handleSSEEvent` 函数
+**位置**：`Cortex-Vue3/src/views/agent/AgentChat.vue` 的 `handleSSEEvent` 函数
 
 **问题**：
 - 当收到 `done` 事件时，只是打印日志，但没有将 `streaming.value` 设置为 `false`
@@ -28,7 +28,7 @@ case 'done':
 ```
 
 ### 2. 缺少SSE错误事件处理
-**位置**：`RuoYi-Vue3/src/views/agent/AgentChat.vue` 的 `handleSSEEvent` 函数
+**位置**：`Cortex-Vue3/src/views/agent/AgentChat.vue` 的 `handleSSEEvent` 函数
 
 **问题**：
 - 没有处理后端可能发送的 `error` 类型事件
@@ -46,7 +46,7 @@ case 'error':
 ```
 
 ### 3. SSE连接缺少超时保护
-**位置**：`RuoYi-Vue3/src/views/agent/AgentChat.vue` 的 `sendMessage` 函数
+**位置**：`Cortex-Vue3/src/views/agent/AgentChat.vue` 的 `sendMessage` 函数
 
 **问题**：
 - 如果SSE连接因网络问题、服务器无响应等原因卡住
@@ -80,7 +80,7 @@ while (true) {
 ```
 
 ### 4. 计时器管理不够健壮
-**位置**：`RuoYi-Vue3/src/views/agent/components/ChatMessageList.vue`
+**位置**：`Cortex-Vue3/src/views/agent/components/ChatMessageList.vue`
 
 **问题**：
 - `watch` 监听 `streaming` 状态时，可能因为Vue响应式系统的更新时序问题导致状态不同步
@@ -179,8 +179,8 @@ watch(() => props.streaming, (newVal, oldVal) => {
 
 ## 相关文件
 
-- `RuoYi-Vue3/src/views/agent/AgentChat.vue` - 主聊天页面，管理SSE连接和streaming状态
-- `RuoYi-Vue3/src/views/agent/components/ChatMessageList.vue` - 消息列表组件，显示计时器
+- `Cortex-Vue3/src/views/agent/AgentChat.vue` - 主聊天页面，管理SSE连接和streaming状态
+- `Cortex-Vue3/src/views/agent/components/ChatMessageList.vue` - 消息列表组件，显示计时器
 
 ## 更新时间
 

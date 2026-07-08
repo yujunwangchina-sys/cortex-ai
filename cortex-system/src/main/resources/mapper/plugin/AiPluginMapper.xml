@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cortex.plugin.mapper.AiPluginMapper">
+    
+    <resultMap type="AiPlugin" id="AiPluginResult">
+        <result property="pluginId"       column="plugin_id"        />
+        <result property="pluginName"     column="plugin_name"      />
+        <result property="pluginType"     column="plugin_type"      />
+        <result property="category"       column="category"         />
+        <result property="description"    column="description"      />
+        <result property="icon"           column="icon"             />
+        <result property="version"        column="version"          />
+        <result property="author"         column="author"           />
+        <result property="runtimeType"    column="runtime_type"     />
+        <result property="packageName"    column="package_name"     />
+        <result property="startCommand"   column="start_command"    />
+        <result property="envVars"        column="env_vars"         />
+        <result property="builtinClass"   column="builtin_class"    />
+        <result property="status"         column="status"           />
+        <result property="requireApproval" column="require_approval" />
+        <result property="isOfficial"     column="is_official"      />
+        <result property="installSource"  column="install_source"   />
+        <result property="sortOrder"      column="sort_order"       />
+        <result property="createBy"       column="create_by"        />
+        <result property="createTime"     column="create_time"      />
+        <result property="updateBy"       column="update_by"        />
+        <result property="updateTime"     column="update_time"      />
+        <result property="remark"         column="remark"           />
+    </resultMap>
+
+    <sql id="selectAiPluginVo">
+        select plugin_id, plugin_name, plugin_type, category, description, icon, version, author,
+               runtime_type, package_name, start_command, env_vars, builtin_class, status, require_approval, is_official,
+               install_source, sort_order, create_by, create_time, update_by, update_time, remark
+        from ai_plugin
+    </sql>
+
+    <select id="selectAiPluginList" parameterType="AiPlugin" resultMap="AiPluginResult">
+        <include refid="selectAiPluginVo"/>
+        <where>  
+            <if test="pluginName != null  and pluginName != ''"> and plugin_name like concat('%', #{pluginName}, '%')</if>
+            <if test="pluginType != null  and pluginType != ''"> and plugin_type = #{pluginType}</if>
+            <if test="category != null  and category != ''"> and category = #{category}</if>
+            <if test="runtimeType != null  and runtimeType != ''"> and runtime_type = #{runtimeType}</if>
+            <if test="packageName != null  and packageName != ''"> and package_name = #{packageName}</if>
+            <if test="builtinClass != null  and builtinClass != ''"> and builtin_class = #{builtinClass}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="isOfficial != null  and isOfficial != ''"> and is_official = #{isOfficial}</if>
+        </where>
+        order by sort_order, plugin_id
+    </select>
+    
+    <select id="selectAiPluginByPluginId" parameterType="Long" resultMap="AiPluginResult">
+        <include refid="selectAiPluginVo"/>
+        where plugin_id = #{pluginId}
+    </select>
+
+    <select id="selectAiPluginByPluginName" parameterType="String" resultMap="AiPluginResult">
+        <include refid="selectAiPluginVo"/>
+        where plugin_name = #{pluginName}
+    </select>
+
+    <select id="selectEnabledPluginList" resultMap="AiPluginResult">
+        <include refid="selectAiPluginVo"/>
+        where status = '0'
+        order by sort_order, plugin_id
+    </select>
+
+    <select id="selectPluginListByType" parameterType="String" resultMap="AiPluginResult">
+        <include refid="selectAiPluginVo"/>
+        where plugin_type = #{pluginType} and status = '0'
+        order by sort_order, plugin_id
+    </select>
+
+    <select id="checkPluginNameUnique" parameterType="String" resultMap="AiPluginResult">
+        <include refid="selectAiPluginVo"/>
+        where plugin_name = #{pluginName} limit 1
+    </select>
+        
+    <insert id="insertAiPlugin" parameterType="AiPlugin" useGeneratedKeys="true" keyProperty="pluginId">
+        insert into ai_plugin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pluginName != null and pluginName != ''">plugin_name,</if>
+            <if test="pluginType != null and pluginType != ''">plugin_type,</if>
+            <if test="category != null">category,</if>
+            <if test="description != null">description,</if>
+            <if test="icon != null">icon,</if>
+            <if test="version != null">version,</if>
+            <if test="author != null">author,</if>
+            <if test="runtimeType != null">runtime_type,</if>
+            <if test="packageName != null">package_name,</if>
+            <if test="startCommand != null">start_command,</if>
+            <if test="envVars != null">env_vars,</if>
+            <if test="builtinClass != null">builtin_class,</if>
+            <if test="status != null">status,</if>
+            <if test="requireApproval != null">require_approval,</if>
+            <if test="isOfficial != null">is_official,</if>
+            <if test="installSource != null">install_source,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pluginName != null and pluginName != ''">#{pluginName},</if>
+            <if test="pluginType != null and pluginType != ''">#{pluginType},</if>
+            <if test="category != null">#{category},</if>
+            <if test="description != null">#{description},</if>
+            <if test="icon != null">#{icon},</if>
+            <if test="version != null">#{version},</if>
+            <if test="author != null">#{author},</if>
+            <if test="runtimeType != null">#{runtimeType},</if>
+            <if test="packageName != null">#{packageName},</if>
+            <if test="startCommand != null">#{startCommand},</if>
+            <if test="envVars != null">#{envVars},</if>
+            <if test="builtinClass != null">#{builtinClass},</if>
+            <if test="status != null">#{status},</if>
+            <if test="requireApproval != null">#{requireApproval},</if>
+            <if test="isOfficial != null">#{isOfficial},</if>
+            <if test="installSource != null">#{installSource},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAiPlugin" parameterType="AiPlugin">
+        update ai_plugin
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pluginName != null and pluginName != ''">plugin_name = #{pluginName},</if>
+            <if test="pluginType != null and pluginType != ''">plugin_type = #{pluginType},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="icon != null">icon = #{icon},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="author != null">author = #{author},</if>
+            <if test="runtimeType != null">runtime_type = #{runtimeType},</if>
+            <if test="packageName != null">package_name = #{packageName},</if>
+            <if test="startCommand != null">start_command = #{startCommand},</if>
+            <if test="envVars != null">env_vars = #{envVars},</if>
+            <if test="builtinClass != null">builtin_class = #{builtinClass},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="requireApproval != null">require_approval = #{requireApproval},</if>
+            <if test="isOfficial != null">is_official = #{isOfficial},</if>
+            <if test="installSource != null">install_source = #{installSource},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where plugin_id = #{pluginId}
+    </update>
+
+    <delete id="deleteAiPluginByPluginId" parameterType="Long">
+        delete from ai_plugin where plugin_id = #{pluginId}
+    </delete>
+
+    <delete id="deleteAiPluginByPluginIds" parameterType="String">
+        delete from ai_plugin where plugin_id in 
+        <foreach item="pluginId" collection="array" open="(" separator="," close=")">
+            #{pluginId}
+        </foreach>
+    </delete>
+    
+    <select id="countPlugins" resultType="int">
+        select count(*) from ai_plugin
+    </select>
+    
+    <select id="countPluginsLastPeriod" resultType="int">
+        select count(*) from ai_plugin
+        where create_time &lt;= DATE_SUB(NOW(), INTERVAL 7 DAY)
+    </select>
+    
+    <select id="countPluginsByDate" parameterType="String" resultType="int">
+        select count(*) from ai_plugin
+        where DATE(create_time) &lt;= #{date}
+    </select>
+</mapper>

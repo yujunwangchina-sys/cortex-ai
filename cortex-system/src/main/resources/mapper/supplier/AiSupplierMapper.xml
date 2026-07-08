@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cortex.supplier.mapper.AiSupplierMapper">
+    
+    <resultMap type="com.cortex.supplier.domain.AiSupplier" id="AiSupplierResult">
+        <id     property="supplierId"      column="supplier_id"      />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="supplierCode"    column="supplier_code"    />
+        <result property="apiBaseUrl"      column="api_base_url"     />
+        <result property="apiKey"          column="api_key"          />
+        <result property="description"     column="description"      />
+        <result property="status"          column="status"           />
+        <result property="sortOrder"       column="sort_order"       />
+        <result property="createBy"        column="create_by"        />
+        <result property="createTime"      column="create_time"      />
+        <result property="updateBy"        column="update_by"        />
+        <result property="updateTime"      column="update_time"      />
+        <result property="remark"          column="remark"           />
+    </resultMap>
+    
+    <sql id="selectAiSupplierVo">
+        select supplier_id, supplier_name, supplier_code, api_base_url, api_key, description, status, sort_order, 
+               create_by, create_time, update_by, update_time, remark 
+        from ai_supplier
+    </sql>
+    
+    <select id="selectAiSupplierList" parameterType="com.cortex.supplier.domain.AiSupplier" resultMap="AiSupplierResult">
+        <include refid="selectAiSupplierVo"/>
+        <where>
+            <if test="supplierName != null and supplierName != ''">
+                AND supplier_name like concat('%', #{supplierName}, '%')
+            </if>
+            <if test="supplierCode != null and supplierCode != ''">
+                AND supplier_code like concat('%', #{supplierCode}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+        </where>
+        order by sort_order asc, supplier_id asc
+    </select>
+    
+    <select id="selectAiSupplierBySupplierId" parameterType="Long" resultMap="AiSupplierResult">
+        <include refid="selectAiSupplierVo"/>
+        where supplier_id = #{supplierId}
+    </select>
+    
+    <select id="checkSupplierCodeUnique" parameterType="String" resultMap="AiSupplierResult">
+        <include refid="selectAiSupplierVo"/>
+        where supplier_code = #{supplierCode} limit 1
+    </select>
+    
+    <insert id="insertAiSupplier" parameterType="com.cortex.supplier.domain.AiSupplier" useGeneratedKeys="true" keyProperty="supplierId">
+        insert into ai_supplier (
+            <if test="supplierName != null and supplierName != ''">supplier_name,</if>
+            <if test="supplierCode != null and supplierCode != ''">supplier_code,</if>
+            <if test="apiBaseUrl != null and apiBaseUrl != ''">api_base_url,</if>
+            <if test="apiKey != null and apiKey != ''">api_key,</if>
+            <if test="description != null and description != ''">description,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            create_time
+        )values(
+            <if test="supplierName != null and supplierName != ''">#{supplierName},</if>
+            <if test="supplierCode != null and supplierCode != ''">#{supplierCode},</if>
+            <if test="apiBaseUrl != null and apiBaseUrl != ''">#{apiBaseUrl},</if>
+            <if test="apiKey != null and apiKey != ''">#{apiKey},</if>
+            <if test="description != null and description != ''">#{description},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            sysdate()
+        )
+    </insert>
+    
+    <update id="updateAiSupplier" parameterType="com.cortex.supplier.domain.AiSupplier">
+        update ai_supplier 
+        <set>
+            <if test="supplierName != null and supplierName != ''">supplier_name = #{supplierName},</if>
+            <if test="supplierCode != null and supplierCode != ''">supplier_code = #{supplierCode},</if>
+            <if test="apiBaseUrl != null and apiBaseUrl != ''">api_base_url = #{apiBaseUrl},</if>
+            <if test="apiKey != null">api_key = #{apiKey},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            update_time = sysdate()
+        </set>
+        where supplier_id = #{supplierId}
+    </update>
+    
+    <delete id="deleteAiSupplierBySupplierId" parameterType="Long">
+        delete from ai_supplier where supplier_id = #{supplierId}
+    </delete>
+    
+    <delete id="deleteAiSupplierBySupplierIds" parameterType="Long">
+        delete from ai_supplier where supplier_id in 
+        <foreach item="supplierId" collection="array" open="(" separator="," close=")">
+            #{supplierId}
+        </foreach>
+    </delete>
+    
+</mapper>

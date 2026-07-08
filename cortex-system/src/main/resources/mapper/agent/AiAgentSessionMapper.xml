@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cortex.agent.mapper.AiAgentSessionMapper">
+
+    <resultMap type="com.cortex.agent.domain.AiAgentSession" id="AiAgentSessionResult">
+        <result property="sessionId"      column="session_id"      />
+        <result property="agentId"        column="agent_id"        />
+        <result property="agentCode"      column="agent_code"      />
+        <result property="userLoginName"  column="user_login_name" />
+        <result property="businessSystem" column="business_system" />
+        <result property="messages"       column="messages"        />
+        <result property="tokenUsage"     column="token_usage"     />
+        <result property="iterationCount" column="iteration_count" />
+        <result property="status"         column="status"          />
+        <result property="lastMessageTime" column="last_message_time" />
+        <result property="title"          column="title"           />
+        <result property="createBy"       column="create_by"       />
+        <result property="createTime"     column="create_time"     />
+        <result property="updateBy"       column="update_by"       />
+        <result property="updateTime"     column="update_time"     />
+        <result property="remark"         column="remark"          />
+        <result property="agentName"      column="agent_name"      />
+    </resultMap>
+
+    <sql id="selectAiAgentSessionVo">
+        select s.session_id, s.agent_id, s.agent_code, s.user_login_name, s.business_system,
+                s.token_usage, s.iteration_count, s.status, s.last_message_time, s.title,
+               s.create_by, s.create_time, s.update_by, s.update_time, s.remark,
+               a.agent_name
+        from ai_agent_session s
+        left join ai_agent a on s.agent_id = a.id
+    </sql>
+
+    <select id="selectAiAgentSessionBySessionId" parameterType="String" resultMap="AiAgentSessionResult">
+        <include refid="selectAiAgentSessionVo"/>
+        where s.session_id = #{sessionId}
+    </select>
+
+    <select id="selectAiAgentSessionList" parameterType="com.cortex.agent.domain.AiAgentSession" resultMap="AiAgentSessionResult">
+        <include refid="selectAiAgentSessionVo"/>
+        <where>
+            <if test="agentId != null"> and s.agent_id = #{agentId}</if>
+            <if test="agentCode != null and agentCode != ''"> and s.agent_code = #{agentCode}</if>
+            <if test="userLoginName != null and userLoginName != ''"> and s.user_login_name = #{userLoginName}</if>
+            <if test="businessSystem != null and businessSystem != ''"> and s.business_system = #{businessSystem}</if>
+            <if test="status != null and status != ''"> and s.status = #{status}</if>
+        </where>
+        order by s.last_message_time desc
+    </select>
+
+    <select id="selectSessionsByBusinessSystem" parameterType="String" resultMap="AiAgentSessionResult">
+        <include refid="selectAiAgentSessionVo"/>
+        where s.business_system = #{businessSystem} and s.status = '0'
+        order by s.last_message_time desc
+    </select>
+
+    <select id="selectDistinctUserLoginNames" parameterType="String" resultType="String">
+        select distinct s.user_login_name
+        from ai_agent_session s
+        where s.business_system = #{businessSystem} and s.user_login_name is not null
+        order by s.user_login_name
+    </select>
+
+    <insert id="insertAiAgentSession" parameterType="com.cortex.agent.domain.AiAgentSession">
+        insert into ai_agent_session
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            session_id,
+            <if test="agentId != null">agent_id,</if>
+            <if test="agentCode != null and agentCode != ''">agent_code,</if>
+            <if test="userLoginName != null and userLoginName != ''">user_login_name,</if>
+            <if test="businessSystem != null and businessSystem != ''">business_system,</if>
+            <if test="tokenUsage != null">token_usage,</if>
+            <if test="iterationCount != null">iteration_count,</if>
+            <if test="status != null">status,</if>
+            <if test="lastMessageTime != null">last_message_time,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="remark != null">remark,</if>
+            create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{sessionId},
+            <if test="agentId != null">#{agentId},</if>
+            <if test="agentCode != null and agentCode != ''">#{agentCode},</if>
+            <if test="userLoginName != null and userLoginName != ''">#{userLoginName},</if>
+            <if test="businessSystem != null and businessSystem != ''">#{businessSystem},</if>
+            <if test="tokenUsage != null">#{tokenUsage},</if>
+            <if test="iterationCount != null">#{iterationCount},</if>
+            <if test="status != null">#{status},</if>
+            <if test="lastMessageTime != null">#{lastMessageTime},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="remark != null">#{remark},</if>
+            #{createTime}
+        </trim>
+    </insert>
+
+    <update id="updateAiAgentSession" parameterType="com.cortex.agent.domain.AiAgentSession">
+        update ai_agent_session
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="agentId != null">agent_id = #{agentId},</if>
+            <if test="agentCode != null and agentCode != ''">agent_code = #{agentCode},</if>
+            <if test="userLoginName != null and userLoginName != ''">user_login_name = #{userLoginName},</if>
+            <if test="businessSystem != null and businessSystem != ''">business_system = #{businessSystem},</if>
+            <if test="tokenUsage != null">token_usage = #{tokenUsage},</if>
+            <if test="iterationCount != null">iteration_count = #{iterationCount},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="lastMessageTime != null">last_message_time = #{lastMessageTime},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            update_time = #{updateTime}
+        </trim>
+        where session_id = #{sessionId}
+    </update>
+
+    <delete id="deleteAiAgentSessionBySessionId" parameterType="String">
+        delete from ai_agent_session where session_id = #{sessionId}
+    </delete>
+
+    <delete id="deleteAiAgentSessionBySessionIds" parameterType="String">
+        delete from ai_agent_session where session_id in
+        <foreach item="sessionId" collection="array" open="(" separator="," close=")">
+            #{sessionId}
+        </foreach>
+    </delete>
+
+    <update id="updateSessionStats" parameterType="com.cortex.agent.domain.AiAgentSession">
+        update ai_agent_session
+        set token_usage = #{tokenUsage},
+            iteration_count = #{iterationCount},
+            last_message_time = #{lastMessageTime},
+            update_time = #{updateTime}
+        where session_id = #{sessionId}
+    </update>
+
+    <delete id="cleanupIdleSessions" parameterType="java.util.Date">
+        update ai_agent_session set status = '1'
+        where status = '0'
+        and last_message_time &lt; #{cutoffTime}
+    </delete>
+    <select id="selectAllBusinessSystems" resultType="String">
+        select distinct business_system
+        from ai_agent_session
+        where business_system is not null
+        order by business_system
+    </select>
+    <select id="selectSessionTree" resultType="java.util.Map">
+        select s.business_system as businessSystem, s.user_login_name as userLoginName,
+               count(s.session_id) as sessionCount, max(s.last_message_time) as lastActive
+        from ai_agent_session s
+        where s.business_system is not null and s.user_login_name is not null
+        group by s.business_system, s.user_login_name
+        order by s.business_system, s.user_login_name
+    </select>
+
+    <select id="countSessions" resultType="int">
+        select count(*) from ai_agent_session
+    </select>
+    
+    <select id="countSessionsLastPeriod" resultType="int">
+        select count(*) from ai_agent_session
+        where create_time &lt;= DATE_SUB(NOW(), INTERVAL 7 DAY)
+    </select>
+    
+    <select id="countSessionsByDate" parameterType="String" resultType="int">
+        select count(*) from ai_agent_session
+        where DATE(create_time) &lt;= #{date}
+    </select>
+
+</mapper>

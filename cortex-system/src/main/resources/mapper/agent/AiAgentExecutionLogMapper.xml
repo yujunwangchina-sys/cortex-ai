@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cortex.agent.mapper.AiAgentExecutionLogMapper">
+
+    <resultMap type="com.cortex.agent.domain.AiAgentExecutionLog" id="AiAgentExecutionLogResult">
+        <result property="logId"           column="log_id"            />
+        <result property="sessionId"       column="session_id"        />
+        <result property="agentId"         column="agent_id"          />
+        <result property="turnId"          column="turn_id"           />
+        <result property="iteration"       column="iteration"         />
+        <result property="eventType"       column="event_type"        />
+        <result property="pluginName"      column="plugin_name"       />
+        <result property="toolName"        column="tool_name"         />
+        <result property="inputParams"     column="input_params"      />
+        <result property="outputResult"    column="output_result"     />
+        <result property="durationMs"      column="duration_ms"       />
+        <result property="tokenInput"      column="token_input"       />
+        <result property="tokenOutput"     column="token_output"      />
+        <result property="status"          column="status"            />
+        <result property="errorMessage"    column="error_message"     />
+        <result property="businessSystem"  column="business_system"   />
+        <result property="userLoginName"   column="user_login_name"   />
+        <result property="createTime"      column="create_time"       />
+    </resultMap>
+
+    <sql id="selectAiAgentExecutionLogVo">
+        select log_id, session_id, agent_id, turn_id, iteration, event_type, plugin_name, tool_name,
+               input_params, output_result, duration_ms, token_input, token_output, status,
+               error_message, business_system, user_login_name, create_time
+        from ai_agent_execution_log
+    </sql>
+
+    <select id="selectAiAgentExecutionLogByLogId" parameterType="Long" resultMap="AiAgentExecutionLogResult">
+        <include refid="selectAiAgentExecutionLogVo"/>
+        where log_id = #{logId}
+    </select>
+
+    <select id="selectAiAgentExecutionLogList" parameterType="com.cortex.agent.domain.AiAgentExecutionLog" resultMap="AiAgentExecutionLogResult">
+        <include refid="selectAiAgentExecutionLogVo"/>
+        <where>
+            <if test="sessionId != null and sessionId != ''"> and session_id = #{sessionId}</if>
+            <if test="agentId != null"> and agent_id = #{agentId}</if>
+            <if test="turnId != null and turnId != ''"> and turn_id = #{turnId}</if>
+            <if test="eventType != null and eventType != ''"> and event_type = #{eventType}</if>
+            <if test="pluginName != null and pluginName != ''"> and plugin_name = #{pluginName}</if>
+            <if test="toolName != null and toolName != ''"> and tool_name = #{toolName}</if>
+            <if test="status != null and status != ''"> and status = #{status}</if>
+            <if test="businessSystem != null and businessSystem != ''"> and business_system = #{businessSystem}</if>
+            <if test="userLoginName != null and userLoginName != ''"> and user_login_name = #{userLoginName}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectBySessionId" parameterType="String" resultMap="AiAgentExecutionLogResult">
+        <include refid="selectAiAgentExecutionLogVo"/>
+        where session_id = #{sessionId}
+        order by create_time asc
+    </select>
+
+    <insert id="insertAiAgentExecutionLog" parameterType="com.cortex.agent.domain.AiAgentExecutionLog" useGeneratedKeys="true" keyProperty="logId">
+        insert into ai_agent_execution_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sessionId != null and sessionId != ''">session_id,</if>
+            <if test="agentId != null">agent_id,</if>
+            <if test="turnId != null and turnId != ''">turn_id,</if>
+            <if test="iteration != null">iteration,</if>
+            <if test="eventType != null and eventType != ''">event_type,</if>
+            <if test="pluginName != null and pluginName != ''">plugin_name,</if>
+            <if test="toolName != null and toolName != ''">tool_name,</if>
+            <if test="inputParams != null">input_params,</if>
+            <if test="outputResult != null">output_result,</if>
+            <if test="durationMs != null">duration_ms,</if>
+            <if test="tokenInput != null">token_input,</if>
+            <if test="tokenOutput != null">token_output,</if>
+            <if test="status != null">status,</if>
+            <if test="errorMessage != null">error_message,</if>
+            <if test="businessSystem != null and businessSystem != ''">business_system,</if>
+            <if test="userLoginName != null and userLoginName != ''">user_login_name,</if>
+            create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sessionId != null and sessionId != ''">#{sessionId},</if>
+            <if test="agentId != null">#{agentId},</if>
+            <if test="turnId != null and turnId != ''">#{turnId},</if>
+            <if test="iteration != null">#{iteration},</if>
+            <if test="eventType != null and eventType != ''">#{eventType},</if>
+            <if test="pluginName != null and pluginName != ''">#{pluginName},</if>
+            <if test="toolName != null and toolName != ''">#{toolName},</if>
+            <if test="inputParams != null">#{inputParams},</if>
+            <if test="outputResult != null">#{outputResult},</if>
+            <if test="durationMs != null">#{durationMs},</if>
+            <if test="tokenInput != null">#{tokenInput},</if>
+            <if test="tokenOutput != null">#{tokenOutput},</if>
+            <if test="status != null">#{status},</if>
+            <if test="errorMessage != null">#{errorMessage},</if>
+            <if test="businessSystem != null and businessSystem != ''">#{businessSystem},</if>
+            <if test="userLoginName != null and userLoginName != ''">#{userLoginName},</if>
+            #{createTime}
+        </trim>
+    </insert>
+
+    <delete id="deleteAiAgentExecutionLogByLogId" parameterType="Long">
+        delete from ai_agent_execution_log where log_id = #{logId}
+    </delete>
+
+    <delete id="deleteAiAgentExecutionLogByLogIds" parameterType="String">
+        delete from ai_agent_execution_log where log_id in
+        <foreach item="logId" collection="array" open="(" separator="," close=")">
+            #{logId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteBySessionId" parameterType="String">
+        delete from ai_agent_execution_log where session_id = #{sessionId}
+    </delete>
+</mapper>

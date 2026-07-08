@@ -230,11 +230,11 @@ public SkillNode findSkillMdInPackage(Long packageId) {
 
 ## 参考代码位置
 
-- **插件类**：`com.ruoyi.agent.runtime.builtin.SkillManagerPlugin`
+- **插件类**：`com.cortex.agent.runtime.builtin.SkillManagerPlugin`
   - `viewSkill()` 方法（约 400 行）
   - `buildSkillViewResponse()` 方法（约 450 行）
 
-- **Mapper 接口**：`com.ruoyi.skill.mapper.SkillNodeMapper`
+- **Mapper 接口**：`com.cortex.skill.mapper.SkillNodeMapper`
   - `selectNodeWithContent(Long id)`
   - `selectChildrenByParentId(Long parentId)`
 
@@ -242,5 +242,5 @@ public SkillNode findSkillMdInPackage(Long packageId) {
   - `<select id="selectNodeWithContent">` 
   - `<select id="selectChildrenByParentId">`
 
-- **导入逻辑**：`com.ruoyi.skill.service.impl.SkillNodeServiceImpl`
+- **导入逻辑**：`com.cortex.skill.service.impl.SkillNodeServiceImpl`
   - `importSkillPackageToDb()` 方法（约 680 行）

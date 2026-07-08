@@ -162,7 +162,7 @@
 ## 文件位置
 
 ```
-e:\java\RuoYi-Vue\RuoYi-Vue3\src\views\agent\AgentChat.vue
+e:\java\Cortex-Vue\Cortex-Vue3\src\views\agent\AgentChat.vue
 ```
 
 ---

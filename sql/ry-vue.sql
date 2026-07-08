@@ -5,7 +5,7 @@
  Source Server Type    : MySQL
  Source Server Version : 80046 (8.0.46)
  Source Host           : localhost:3306
- Source Schema         : ry-vue
+ Source Schema         : cortex-vue
 
  Target Server Type    : MySQL
  Target Server Version : 80046 (8.0.46)
